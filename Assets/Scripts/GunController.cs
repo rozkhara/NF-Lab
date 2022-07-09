@@ -6,23 +6,32 @@ public abstract class GunController
 {
     public Gun Holder { get; private set; }
 
+    public bool IsResourceLoaded { get; private set; }
+
     /// <summary>
     /// 연사 속도
     /// </summary>
     public abstract float FiringRate { get; }
 
     /// <summary>
-    /// 재장전 하는 총알의 수
+    /// 탄창 내 총알의 수
     /// </summary>
     public abstract int ReloadBulletCount { get; }
 
     private bool isReloaded;
 
+    protected GameObject resource;
+
     public void AttachThis(Gun gun)
     {
         Holder = gun;
 
+        Holder.FiringRateCounter = FiringRate;
+        Holder.CurrentBulletCount = ReloadBulletCount;
+
         OnAttached();
+
+        Holder.StartCoroutine(Load());
     }
 
     public void DetachThis()
@@ -32,11 +41,23 @@ public abstract class GunController
         OnDetached();
     }
 
-    public void OnUpdate()
-    {
-    }
+    public abstract void OnUpdate();
 
     protected abstract void OnAttached();
 
     protected abstract void OnDetached();
+
+    private IEnumerator Load()
+    {
+        IsResourceLoaded = false;
+
+        yield return LoadResources();
+
+        var t = resource.transform;
+        t.parent = Holder.transform;
+
+        IsResourceLoaded = true;
+    }
+
+    protected abstract IEnumerator LoadResources();
 }

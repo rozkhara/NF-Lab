@@ -6,20 +6,20 @@ public class Gun : MonoBehaviour
 {
     private bool isReloaded = false;
 
-    private float firingRateCounter;
+    public float FiringRateCounter { get; set; }
 
     /// <summary>
     /// 현재 탄창 내 총알의 수
     /// </summary>
-    private int currentBulletCount;
+    public int CurrentBulletCount { get; set; }
 
     private Vector3 originPos;
 
     private RaycastHit hitInfo;
 
-    private GunController controller;
-
     private Camera cam;
+
+    private GunController controller;
 
     public GunController Controller
     {
@@ -34,7 +34,6 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
-        firingRateCounter = Controller.FiringRate;
         originPos = transform.localPosition;
         cam = transform.parent.GetChild(0).GetComponent<Camera>();
     }
@@ -57,27 +56,27 @@ public class Gun : MonoBehaviour
 
     private void GunFireRateCalc()
     {
-        if (firingRateCounter > 0) firingRateCounter -= Time.deltaTime;
+        if (FiringRateCounter > 0) FiringRateCounter -= Time.deltaTime;
     }
 
     private void TryFire()
     {
-        if (Input.GetButton("Fire1") && Controller.FiringRate <= 0 && isReloaded) Fire();
+        if (Input.GetButton("Fire1") && FiringRateCounter <= 0 && !isReloaded) Fire();
     }
 
     private void Fire()
     {
         if (!isReloaded)
         {
-            if (currentBulletCount > 0) Shoot();
+            if (CurrentBulletCount > 0) Shoot();
             else StartCoroutine(ReloadCoroutine());
         }
     }
 
     private void Shoot()
     {
-        currentBulletCount--;
-        firingRateCounter = Controller.FiringRate;
+        CurrentBulletCount--;
+        FiringRateCounter = controller.FiringRate;
 
         Hit();
 
@@ -94,7 +93,7 @@ public class Gun : MonoBehaviour
 
     private void TryReload()
     {
-        if (Input.GetKeyDown(KeyCode.R) && !isReloaded && currentBulletCount < Controller.ReloadBulletCount)
+        if (Input.GetKeyDown(KeyCode.R) && !isReloaded && CurrentBulletCount < controller.ReloadBulletCount)
         {
             StartCoroutine(ReloadCoroutine());
         }
@@ -104,7 +103,7 @@ public class Gun : MonoBehaviour
     {
         isReloaded = true;
 
-        currentBulletCount = Controller.ReloadBulletCount;
+        CurrentBulletCount = controller.ReloadBulletCount;
 
         yield return new WaitForSeconds(2f);
 
@@ -113,12 +112,12 @@ public class Gun : MonoBehaviour
 
     private IEnumerator RetroActionCoroutine()
     {
-        Vector3 recoilBack = new Vector3(1f, originPos.y, originPos.z);
+        Vector3 recoilBack = new Vector3(0.3f, originPos.y, originPos.z);
 
         transform.localPosition = originPos;
 
         // 반동 시작
-        while (transform.localPosition.x <= 1f - 0.02f)
+        while (transform.localPosition.x <= 0.3f - 0.02f)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, recoilBack, 0.4f);
             yield return null;
