@@ -21,9 +21,7 @@ public sealed class Target : MonoBehaviour
 
     private void Update()
     {
-        if (controller == null) return;
-
-        controller.OnUpdate();
+        controller?.OnUpdate();
     }
 
     private void OnDestroy()
