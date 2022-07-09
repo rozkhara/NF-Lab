@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: e12170098de064e47b75d90f6c73d35c
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 04811147f32c7c347a59e4e171c0a333
+    m_Address: Assets/Prefabs/HandGun.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 58ae9ccc6d1e304488953fad9e4d5d4a, type: 2}
   m_SchemaSet:
