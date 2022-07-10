@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CameraRotate : MonoBehaviour
 {
-    [Header("감도")]
-    public float rotCamXAxisSpeed = 5; // 수직
-    public float rotCamYAxisSpeed = 3; // 수평
+    private float rotCamXAxisSpeed; // 수직
+    private float rotCamYAxisSpeed; // 수평
 
     private float limitMinX = -90;
     private float limitMaxX = 90;
@@ -15,6 +14,12 @@ public class CameraRotate : MonoBehaviour
 
     private float eulerAngleX;
     private float eulerAngleY;
+
+    private void Awake()
+    {
+        rotCamXAxisSpeed = 3f;
+        rotCamYAxisSpeed = 5f;
+    }
 
     public void UpdateRotate(float mouseX, float mouseY)
     {

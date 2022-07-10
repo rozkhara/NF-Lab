@@ -12,17 +12,15 @@ public sealed class Gun : MonoBehaviour
     /// </summary>
     public float FiringRate { get; set; }
 
-    public float FiringRateCounter { get; set; }
+    private float firingRateCounter;
 
     /// <summary>
     /// 탄창 내 최대 총알의 수
     /// </summary>
     public int ReloadBulletCount { get; set; }
 
-    /// <summary>
-    /// 현재 탄창 내 총알의 수
-    /// </summary>
-    public int CurrentBulletCount { get; set; }
+    // 현재 탄창 내 총알의 수
+    private int currentBulletCount;
 
     private Vector3 originPos;
 
@@ -68,27 +66,27 @@ public sealed class Gun : MonoBehaviour
 
     private void GunFireRateCalc()
     {
-        if (FiringRateCounter > 0) FiringRateCounter -= Time.deltaTime;
+        if (firingRateCounter > 0) firingRateCounter -= Time.deltaTime;
     }
 
     private void TryFire()
     {
-        if (Input.GetButton("Fire1") && FiringRateCounter <= 0 && !isReloaded) Fire();
+        if (Input.GetButton("Fire1") && firingRateCounter <= 0 && !isReloaded) Fire();
     }
 
     private void Fire()
     {
         if (!isReloaded)
         {
-            if (CurrentBulletCount > 0) Shoot();
+            if (currentBulletCount > 0) Shoot();
             else StartCoroutine(ReloadCoroutine());
         }
     }
 
     private void Shoot()
     {
-        CurrentBulletCount--;
-        FiringRateCounter = FiringRate;
+        currentBulletCount--;
+        firingRateCounter = FiringRate;
 
         Hit();
 
@@ -107,7 +105,7 @@ public sealed class Gun : MonoBehaviour
 
     private void TryReload()
     {
-        if (Input.GetKeyDown(KeyCode.R) && !isReloaded && CurrentBulletCount < ReloadBulletCount)
+        if (Input.GetKeyDown(KeyCode.R) && !isReloaded && currentBulletCount < ReloadBulletCount)
         {
             StartCoroutine(ReloadCoroutine());
         }
@@ -119,7 +117,7 @@ public sealed class Gun : MonoBehaviour
 
         Debug.Log("장전 시작!");
 
-        CurrentBulletCount = ReloadBulletCount;
+        currentBulletCount = ReloadBulletCount;
 
         yield return new WaitForSeconds(2f);
 

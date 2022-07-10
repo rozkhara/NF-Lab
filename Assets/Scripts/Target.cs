@@ -4,6 +4,8 @@ using UnityEngine;
 
 public sealed class Target : MonoBehaviour
 {
+    private static readonly HashSet<Target> allTarget = new HashSet<Target>();
+
     public int Life { get; set; }
 
     private TargetController controller;
@@ -19,11 +21,17 @@ public sealed class Target : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        allTarget.Add(this);
+    }
+
     private void Update()
     {
         if (!(controller is { IsResourceLoaded: true })) return;
 
         Move();
+        GameOver();
 
         controller.OnUpdate();
     }
@@ -33,9 +41,24 @@ public sealed class Target : MonoBehaviour
         Controller = null;
     }
 
+    private static void UnloadResources()
+    {
+        allTarget.Clear();
+    }
+
     private void Move()
     {
         transform.Translate(Vector3.back * 1f * Time.deltaTime);
+    }
+
+    private void GameOver()
+    {
+        if (!GameManager.Instance.IsGameOver && transform.position.z <= 2f)
+        {
+            UnloadResources();
+
+            GameManager.Instance.GameOver();
+        }
     }
 
     public void GetHit()

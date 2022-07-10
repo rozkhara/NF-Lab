@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.Player = this;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
