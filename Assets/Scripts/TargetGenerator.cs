@@ -9,8 +9,6 @@ public abstract class TargetGenerator
 
     public GameObject Pool { get; set; }
 
-    public Target Holder { get; protected set; }
-
     public abstract string Name { get; }
 
     public abstract void CreateTarget(int count);

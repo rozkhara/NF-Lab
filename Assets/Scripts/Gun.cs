@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Controllers;
 
-public class Gun : MonoBehaviour
+public sealed class Gun : MonoBehaviour
 {
     private bool isReloaded = false;
 

@@ -23,10 +23,10 @@ namespace Generators
                     }
                 };
 
-                Holder = go.AddComponent<Target>();
-                Holder.Controller = new BeController();
+                var target = go.AddComponent<Target>();
+                target.Controller = new BeController();
 
-                targets.Enqueue(Holder.Controller);
+                targets.Enqueue(target.Controller);
             }
         }
     }
