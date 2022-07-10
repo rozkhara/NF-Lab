@@ -23,12 +23,19 @@ public sealed class Target : MonoBehaviour
     {
         if (!(controller is { IsResourceLoaded: true })) return;
 
-        controller?.OnUpdate();
+        Move();
+
+        controller.OnUpdate();
     }
 
     private void OnDestroy()
     {
         Controller = null;
+    }
+
+    private void Move()
+    {
+        transform.Translate(Vector3.back * 0.5f * Time.deltaTime);
     }
 
     public void GetHit()
