@@ -30,7 +30,7 @@ namespace Spawners
             {
                 targetGenerator.Pool = go;
                 targetGenerator.CreateTarget(10);
-                targetPool.Add(targetGenerator.getTargets());
+                targetPool.Add(targetGenerator.targets);
             }
         }
     }

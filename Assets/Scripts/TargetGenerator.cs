@@ -5,7 +5,7 @@ using Spawners;
 
 public abstract class TargetGenerator
 {
-    public Queue<TargetController> targets = new Queue<TargetController>();
+    public Queue<TargetController> targets { get; } = new Queue<TargetController>();
 
     public GameObject Pool { get; set; }
 
@@ -14,11 +14,6 @@ public abstract class TargetGenerator
     public bool IsResourceLoaded { get; private set; }
 
     protected GameObject resource;
-
-    public Queue<TargetController> getTargets()
-    {
-        return targets;
-    }
 
     public abstract void CreateTarget(int count);
 
