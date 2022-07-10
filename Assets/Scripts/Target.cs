@@ -35,7 +35,7 @@ public sealed class Target : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(Vector3.back * 0.5f * Time.deltaTime);
+        transform.Translate(Vector3.back * 1f * Time.deltaTime);
     }
 
     public void GetHit()

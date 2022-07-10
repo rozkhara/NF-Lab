@@ -44,10 +44,11 @@ namespace Spawners
 
             var go = new GameObject();
 
+            // 오브젝트 풀링
             foreach (var targetGenerator in targetGenerators)
             {
                 targetGenerator.Pool = go;
-                targetGenerator.CreateTarget(10);
+                targetGenerator.CreateTarget(30);
                 targetPool.Add(targetGenerator.Name, targetGenerator.targets);
             }
 
@@ -68,14 +69,28 @@ namespace Spawners
                 return;
             }
 
-            string ranName = targets[Random.Range(0, targets.Count)];
+            int ran = Random.Range(1, 8);
 
-            var target = targetPool[ranName].Dequeue();
+            List<int> spawnPointIdxList = new List<int>();
 
-            if (idx >= targetPool.Count) idx = 0;
+            for (int i = 0; i < 25; i++)
+            {
+                spawnPointIdxList.Add(i);
+            }
 
-            target.Holder.gameObject.SetActive(true);
-            target.Holder.transform.position = spawnPoints[Random.Range(0, 25)];
+            for (int i = 0; i < ran; i++)
+            {
+                string ranName = targets[Random.Range(0, targets.Count)];
+
+                var target = targetPool[ranName].Dequeue();
+
+                int idx = Random.Range(0, spawnPointIdxList.Count);
+
+                target.Holder.gameObject.SetActive(true);
+                target.Holder.transform.position = spawnPoints[spawnPointIdxList[idx]];
+
+                spawnPointIdxList.RemoveAt(idx);
+            }
 
             spawnCounter = 2f;
         }
