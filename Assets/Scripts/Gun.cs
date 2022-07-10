@@ -95,9 +95,11 @@ public class Gun : MonoBehaviour
 
     private void Hit()
     {
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, 100f))
+        if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hitInfo))
         {
             Debug.Log(hitInfo.transform.name);
+
+            if (hitInfo.transform.tag == "Target") hitInfo.transform.GetComponent<TargetController>().GetHit();
         }
     }
 
@@ -113,9 +115,13 @@ public class Gun : MonoBehaviour
     {
         isReloaded = true;
 
+        Debug.Log("장전 시작!");
+
         CurrentBulletCount = ReloadBulletCount;
 
         yield return new WaitForSeconds(2f);
+
+        Debug.Log("장전 끝!");
 
         isReloaded = false;
     }

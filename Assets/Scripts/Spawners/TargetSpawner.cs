@@ -33,5 +33,10 @@ namespace Spawners
                 targetPool.Add(targetGenerator.targets);
             }
         }
+
+        private void Update()
+        {
+            
+        }
     }
 }
