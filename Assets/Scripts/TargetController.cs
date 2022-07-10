@@ -6,6 +6,10 @@ public abstract class TargetController
 {
     public Target Holder { get; private set; }
 
+    public bool IsResourceLoaded { get; private set; }
+
+    protected GameObject resource;
+
     public void AttachThis(Target target)
     {
         Holder = target;
@@ -13,6 +17,8 @@ public abstract class TargetController
         Holder.Life = 1;
 
         OnAttached();
+
+        Holder.StartCoroutine(Load());
     }
 
     public void DetachThis()
@@ -27,6 +33,22 @@ public abstract class TargetController
     protected abstract void OnAttached();
 
     protected abstract void OnDetached();
+
+    private IEnumerator Load()
+    {
+        IsResourceLoaded = false;
+
+        yield return LoadResources();
+
+        var t = resource.transform;
+        t.parent = Holder.transform;
+
+        Holder.gameObject.SetActive(false);
+
+        IsResourceLoaded = true;
+    }
+
+    protected abstract IEnumerator LoadResources();
 
     public abstract void Fission();
 }

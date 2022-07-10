@@ -21,6 +21,8 @@ public sealed class Target : MonoBehaviour
 
     private void Update()
     {
+        if (!(controller is { IsResourceLoaded: true })) return;
+
         controller?.OnUpdate();
     }
 

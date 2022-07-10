@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Controllers;
 using Spawners;
+using Tool;
 
 namespace Controllers
 {
@@ -21,6 +22,14 @@ namespace Controllers
         protected override void OnDetached()
         {
 
+        }
+
+        protected override IEnumerator LoadResources()
+        {
+            yield return AssetLoader.LoadPrefabAsync<GameObject>("Targets/TargetN", x =>
+            {
+                resource = Object.Instantiate(x);
+            });
         }
 
         public override void Fission()

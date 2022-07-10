@@ -26,18 +26,8 @@ namespace Generators
                 Holder = go.AddComponent<Target>();
                 Holder.Controller = new BeController();
 
-                Holder.StartCoroutine(Load(Holder));
-
                 targets.Enqueue(Holder.Controller);
             }
-        }
-
-        protected override IEnumerator LoadResources()
-        {
-            yield return AssetLoader.LoadPrefabAsync<GameObject>("Targets/TargetBe", x =>
-            {
-                resource = Object.Instantiate(x);
-            });
         }
     }
 }
