@@ -13,20 +13,22 @@ public abstract class TargetGenerator
 
     public bool IsResourceLoaded { get; private set; }
 
+    public abstract string Name { get; }
+
     protected GameObject resource;
 
     public abstract void CreateTarget(int count);
 
-    protected IEnumerator Load()
+    protected IEnumerator Load(Target holder)
     {
         IsResourceLoaded = false;
 
         yield return LoadResources();
 
         var t = resource.transform;
-        t.parent = Holder.transform;
+        t.parent = holder.transform;
 
-        resource.SetActive(false);
+        holder.gameObject.SetActive(false);
 
         IsResourceLoaded = true;
     }

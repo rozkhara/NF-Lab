@@ -8,22 +8,24 @@ namespace Generators
 {
     public class LiGenerator : TargetGenerator
     {
+        public override string Name => "TargetLi";
+
         public override void CreateTarget(int count)
         {
-            var go = new GameObject
-            {
-                transform =
-                {
-                    parent = Pool.transform,
-                }
-            };
-
-            Holder = go.AddComponent<Target>();
-            Holder.Controller = new LiController();
-
             for (int i = 0; i < count; i++)
             {
-                Holder.StartCoroutine(Load());
+                var go = new GameObject
+                {
+                    transform =
+                    {
+                        parent = Pool.transform,
+                    }
+                };
+
+                Holder = go.AddComponent<Target>();
+                Holder.Controller = new LiController();
+
+                Holder.StartCoroutine(Load(Holder));
 
                 targets.Enqueue(Holder.Controller);
             }

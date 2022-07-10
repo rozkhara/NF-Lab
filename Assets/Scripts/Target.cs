@@ -28,4 +28,11 @@ public sealed class Target : MonoBehaviour
     {
         Controller = null;
     }
+
+    public void GetHit()
+    {
+        Life--;
+
+        if (Life == 0) controller.Fission();
+    }
 }

@@ -8,22 +8,24 @@ namespace Generators
 {
     public class CGenerator : TargetGenerator
     {
+        public override string Name => "TargetC";
+
         public override void CreateTarget(int count)
         {
-            var go = new GameObject
-            {
-                transform =
-                {
-                    parent = Pool.transform,
-                }
-            };
-
-            Holder = go.AddComponent<Target>();
-            Holder.Controller = new CController();
-
             for (int i = 0; i < count; i++)
             {
-                Holder.StartCoroutine(Load());
+                var go = new GameObject
+                {
+                    transform =
+                    {
+                        parent = Pool.transform,
+                    }
+                };
+
+                Holder = go.AddComponent<Target>();
+                Holder.Controller = new CController();
+
+                Holder.StartCoroutine(Load(Holder));
 
                 targets.Enqueue(Holder.Controller);
             }

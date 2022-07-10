@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Controllers;
 
 public class Gun : MonoBehaviour
 {
@@ -50,7 +51,8 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        if (controller == null) return;
+        // 관련 리소스가 로드되지 않은 상태에선 행동을 멈춘다.
+        if (!(controller is { IsResourceLoaded: true })) return;
 
         controller.OnUpdate();
 
@@ -99,7 +101,7 @@ public class Gun : MonoBehaviour
         {
             Debug.Log(hitInfo.transform.name);
 
-            if (hitInfo.transform.tag == "Target") hitInfo.transform.GetComponent<TargetController>().GetHit();
+            if (hitInfo.transform.tag == "Target") hitInfo.transform.GetComponentInParent<Target>().GetHit();
         }
     }
 

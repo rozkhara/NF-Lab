@@ -10,6 +10,8 @@ public abstract class TargetController
     {
         Holder = target;
 
+        Holder.Life = 1;
+
         OnAttached();
     }
 
@@ -26,12 +28,5 @@ public abstract class TargetController
 
     protected abstract void OnDetached();
 
-    public void GetHit()
-    {
-        Holder.Life--;
-
-        if (Holder.Life == 0) Fission(Holder);
-    }
-
-    protected abstract void Fission(Target holder);
+    public abstract void Fission();
 }

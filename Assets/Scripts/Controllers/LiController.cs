@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Controllers;
+using Spawners;
 
 namespace Controllers
 {
@@ -22,9 +23,13 @@ namespace Controllers
 
         }
 
-        protected override void Fission(Target holder)
+        public override void Fission()
         {
+            Holder.gameObject.SetActive(false);
 
+            string targetName = Holder.transform.GetChild(0).name;
+
+            TargetSpawner.targetPool[targetName.Substring(0, targetName.Length - 7)].Enqueue(this);
         }
     }
 }

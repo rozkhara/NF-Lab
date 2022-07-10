@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Controllers;
+using Spawners;
 
 namespace Controllers
 {
     public class OController : TargetController
     {
-        private Dictionary<int, List<TargetController>> nextTargets = new Dictionary<int, List<TargetController>>();
-
         public override void OnUpdate()
         {
 
@@ -24,23 +23,13 @@ namespace Controllers
 
         }
 
-        protected override void Fission(Target holder)
+        public override void Fission()
         {
-            Object.Destroy(holder);
+            Holder.gameObject.SetActive(false);
 
-            int atom = Random.Range(2, 5);
+            string targetName = Holder.transform.GetChild(0).name;
 
-            for (int i = 0; i < atom; i++)
-            {
-
-            }
-
-            int neutron = Random.Range(1, 4);
-
-            for (int i = 0; i < neutron; i++)
-            {
-
-            }
+            TargetSpawner.targetPool[targetName.Substring(0, targetName.Length - 7)].Enqueue(this);
         }
     }
 }
