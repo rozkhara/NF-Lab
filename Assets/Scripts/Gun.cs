@@ -6,7 +6,17 @@ public class Gun : MonoBehaviour
 {
     private bool isReloaded = false;
 
+    /// <summary>
+    /// 연사 속도
+    /// </summary>
+    public float FiringRate { get; set; }
+
     public float FiringRateCounter { get; set; }
+
+    /// <summary>
+    /// 탄창 내 최대 총알의 수
+    /// </summary>
+    public int ReloadBulletCount { get; set; }
 
     /// <summary>
     /// 현재 탄창 내 총알의 수
@@ -76,7 +86,7 @@ public class Gun : MonoBehaviour
     private void Shoot()
     {
         CurrentBulletCount--;
-        FiringRateCounter = controller.FiringRate;
+        FiringRateCounter = FiringRate;
 
         Hit();
 
@@ -93,7 +103,7 @@ public class Gun : MonoBehaviour
 
     private void TryReload()
     {
-        if (Input.GetKeyDown(KeyCode.R) && !isReloaded && CurrentBulletCount < controller.ReloadBulletCount)
+        if (Input.GetKeyDown(KeyCode.R) && !isReloaded && CurrentBulletCount < ReloadBulletCount)
         {
             StartCoroutine(ReloadCoroutine());
         }
@@ -103,7 +113,7 @@ public class Gun : MonoBehaviour
     {
         isReloaded = true;
 
-        CurrentBulletCount = controller.ReloadBulletCount;
+        CurrentBulletCount = ReloadBulletCount;
 
         yield return new WaitForSeconds(2f);
 

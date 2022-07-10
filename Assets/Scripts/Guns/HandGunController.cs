@@ -7,10 +7,6 @@ namespace Guns
 {
     public class HandGunController : GunController
     {
-        public override float FiringRate => 0.3f;
-
-        public override int ReloadBulletCount => 9;
-        
         public override void OnUpdate()
         {
 
@@ -18,7 +14,8 @@ namespace Guns
 
         protected override void OnAttached()
         {
-            
+            Holder.FiringRate = 0.3f;
+            Holder.ReloadBulletCount = 9;
         }
 
         protected override void OnDetached()

@@ -8,15 +8,7 @@ public abstract class GunController
 
     public bool IsResourceLoaded { get; private set; }
 
-    /// <summary>
-    /// 연사 속도
-    /// </summary>
-    public abstract float FiringRate { get; }
-
-    /// <summary>
-    /// 탄창 내 총알의 수
-    /// </summary>
-    public abstract int ReloadBulletCount { get; }
+    
 
     private bool isReloaded;
 
@@ -25,9 +17,6 @@ public abstract class GunController
     public void AttachThis(Gun gun)
     {
         Holder = gun;
-
-        Holder.FiringRateCounter = FiringRate;
-        Holder.CurrentBulletCount = ReloadBulletCount;
 
         OnAttached();
 
