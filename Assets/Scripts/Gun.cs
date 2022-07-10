@@ -35,7 +35,7 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         originPos = transform.localPosition;
-        cam = transform.parent.GetChild(0).GetComponent<Camera>();
+        cam = Camera.main;
     }
 
     private void Update()

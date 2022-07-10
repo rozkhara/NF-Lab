@@ -28,7 +28,7 @@ namespace Guns
 
         protected override IEnumerator LoadResources()
         {
-            yield return AssetLoader.LoadPrefabAsync<GameObject>("HandGun", x =>
+            yield return AssetLoader.LoadPrefabAsync<GameObject>("Guns/HandGun", x =>
             {
                 resource = Object.Instantiate(x);
             });
