@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private CameraRotate cameraRotate;
 
-    private void Awake()
+    private void Start()
     {
         GameManager.Instance.Player = this;
 
