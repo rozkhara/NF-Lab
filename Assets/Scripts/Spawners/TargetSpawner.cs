@@ -18,8 +18,6 @@ namespace Spawners
 
         private float spawnCounter = 2f;
 
-        private int idx = 0;
-
         private void Awake()
         {
             // 새로운 타겟 생성기가 생길 때마다 추가해 줘야 함

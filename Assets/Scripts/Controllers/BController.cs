@@ -16,7 +16,7 @@ namespace Controllers
 
         protected override void OnAttached()
         {
-
+            Name = "TargetB";
         }
 
         protected override void OnDetached()
@@ -36,9 +36,9 @@ namespace Controllers
         {
             Holder.gameObject.SetActive(false);
 
-            string targetName = Holder.transform.GetChild(0).name;
-
-            TargetSpawner.targetPool[targetName.Substring(0, targetName.Length - 7)].Enqueue(this);
+            TargetSpawner.targetPool[Name].Enqueue(this);
+            
+            // 분열
         }
     }
 }

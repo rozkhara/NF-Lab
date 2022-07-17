@@ -6,6 +6,8 @@ public abstract class TargetController
 {
     public Target Holder { get; private set; }
 
+    public string Name { get; protected set; }
+
     public bool IsResourceLoaded { get; private set; }
 
     protected GameObject resource;
