@@ -11,7 +11,9 @@ public abstract class TargetController
 
     public abstract int Mass { get; }
 
-    protected readonly List<TargetController> targets = new List<TargetController>();
+    private readonly List<TargetController> targets = new List<TargetController>();
+
+    private readonly List<TargetController> particles = new List<TargetController>();
 
     public bool IsResourceLoaded { get; private set; }
 
@@ -69,7 +71,7 @@ public abstract class TargetController
             if (targetType.Mass < Mass) targets.Add(targetType);
         }
 
-        // 수소의 경우 분열 안 함
+        // 수소는 분열 안 함
         if (Mass == 1) return;
 
         int mass = Mass;
@@ -86,13 +88,17 @@ public abstract class TargetController
             }
 
             var target = TargetSpawner.targetPool[targets[tmp].Name].Dequeue();
-
-            target.Holder.transform.position = Holder.transform.position + Vector3.forward;
-            target.Holder.gameObject.SetActive(true);
+            particles.Add(target);
 
             Debug.Log(target.Name);
 
             mass -= targets[tmp].Mass;
+        }
+
+        for (int i = 0; i < particles.Count; i++)
+        {
+            particles[i].Holder.transform.position = Holder.transform.position + new Vector3(-particles.Count / 2 + i, 0f, 1f);
+            particles[i].Holder.gameObject.SetActive(true);
         }
     }
 }
