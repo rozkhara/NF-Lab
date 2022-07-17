@@ -12,6 +12,8 @@ namespace Spawners
 
         private readonly Dictionary<int, string> targets = new Dictionary<int, string>();
 
+        public static readonly HashSet<TargetController> targetTypes = new HashSet<TargetController>();
+
         private List<TargetGenerator> targetGenerators = new List<TargetGenerator>();
 
         private List<Vector3> spawnPoints = new List<Vector3>();
@@ -20,6 +22,16 @@ namespace Spawners
 
         private void Awake()
         {
+            // 새로운 타겟이 생길 때마다 추가해 줘야 함
+            targetTypes.Add(new HController());
+            targetTypes.Add(new HeController());
+            targetTypes.Add(new LiController());
+            targetTypes.Add(new BeController());
+            targetTypes.Add(new BController());
+            targetTypes.Add(new NController());
+            targetTypes.Add(new CController());
+            targetTypes.Add(new OController());
+
             // 새로운 타겟 생성기가 생길 때마다 추가해 줘야 함
             targetGenerators.Add(new HGenerator());
             targetGenerators.Add(new HeGenerator());
@@ -84,8 +96,8 @@ namespace Spawners
 
                 int idx = Random.Range(0, spawnPointIdxList.Count);
 
+                target.Holder.transform.localPosition = spawnPoints[spawnPointIdxList[idx]];
                 target.Holder.gameObject.SetActive(true);
-                target.Holder.transform.position = spawnPoints[spawnPointIdxList[idx]];
 
                 spawnPointIdxList.RemoveAt(idx);
             }

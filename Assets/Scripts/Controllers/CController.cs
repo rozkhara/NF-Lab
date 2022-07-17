@@ -9,6 +9,10 @@ namespace Controllers
 {
     public class CController : TargetController
     {
+        public override string Name => "TargetC";
+
+        public override int Mass => 12;
+
         public override void OnUpdate()
         {
 
@@ -16,7 +20,7 @@ namespace Controllers
 
         protected override void OnAttached()
         {
-            Name = "TargetC";
+
         }
 
         protected override void OnDetached()
@@ -30,13 +34,6 @@ namespace Controllers
             {
                 resource = Object.Instantiate(x);
             });
-        }
-
-        public override void Fission()
-        {
-            Holder.gameObject.SetActive(false);
-
-            TargetSpawner.targetPool[Name].Enqueue(this);
         }
     }
 }

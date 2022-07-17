@@ -9,6 +9,10 @@ namespace Controllers
 {
     public class OController : TargetController
     {
+        public override string Name => "TargetO";
+
+        public override int Mass => 16;
+
         public override void OnUpdate()
         {
 
@@ -16,7 +20,6 @@ namespace Controllers
 
         protected override void OnAttached()
         {
-            Name = "TargetO";
         }
 
         protected override void OnDetached()
@@ -30,15 +33,6 @@ namespace Controllers
             {
                 resource = Object.Instantiate(x);
             });
-        }
-
-        public override void Fission()
-        {
-            Holder.gameObject.SetActive(false);
-
-            TargetSpawner.targetPool[Name].Enqueue(this);
-
-            // 분열
         }
     }
 }
