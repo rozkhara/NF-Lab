@@ -15,7 +15,6 @@ namespace Guns
         protected override void OnAttached()
         {
             Holder.FiringRate = 0.3f;
-            Holder.ReloadBulletCount = 9;
         }
 
         protected override void OnDetached()

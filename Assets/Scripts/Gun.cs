@@ -5,22 +5,12 @@ using Controllers;
 
 public sealed class Gun : MonoBehaviour
 {
-    private bool isReloaded = false;
-
     /// <summary>
     /// 연사 속도
     /// </summary>
     public float FiringRate { get; set; }
 
     private float firingRateCounter;
-
-    /// <summary>
-    /// 탄창 내 최대 총알의 수
-    /// </summary>
-    public int ReloadBulletCount { get; set; }
-
-    // 현재 탄창 내 총알의 수
-    private int currentBulletCount;
 
     private Vector3 originPos;
 
@@ -56,7 +46,6 @@ public sealed class Gun : MonoBehaviour
 
         GunFireRateCalc();
         TryFire();
-        TryReload();
     }
 
     private void OnDestroy()
@@ -71,21 +60,11 @@ public sealed class Gun : MonoBehaviour
 
     private void TryFire()
     {
-        if (Input.GetButton("Fire1") && firingRateCounter <= 0 && !isReloaded) Fire();
+        if (Input.GetButton("Fire1") && firingRateCounter <= 0) Fire();
     }
 
     private void Fire()
     {
-        if (!isReloaded)
-        {
-            if (currentBulletCount > 0) Shoot();
-            else StartCoroutine(ReloadCoroutine());
-        }
-    }
-
-    private void Shoot()
-    {
-        currentBulletCount--;
         firingRateCounter = FiringRate;
 
         Hit();
@@ -101,29 +80,6 @@ public sealed class Gun : MonoBehaviour
 
             if (hitInfo.transform.tag == "Target") hitInfo.transform.GetComponentInParent<Target>().GetHit();
         }
-    }
-
-    private void TryReload()
-    {
-        if (Input.GetKeyDown(KeyCode.R) && !isReloaded && currentBulletCount < ReloadBulletCount)
-        {
-            StartCoroutine(ReloadCoroutine());
-        }
-    }
-
-    private IEnumerator ReloadCoroutine()
-    {
-        isReloaded = true;
-
-        Debug.Log("장전 시작!");
-
-        currentBulletCount = ReloadBulletCount;
-
-        yield return new WaitForSeconds(2f);
-
-        Debug.Log("장전 끝!");
-
-        isReloaded = false;
     }
 
     private IEnumerator RetroActionCoroutine()

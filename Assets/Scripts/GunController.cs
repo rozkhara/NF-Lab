@@ -8,10 +8,6 @@ public abstract class GunController
 
     public bool IsResourceLoaded { get; private set; }
 
-    
-
-    private bool isReloaded;
-
     protected GameObject resource;
 
     public void AttachThis(Gun gun)

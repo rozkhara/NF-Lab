@@ -39,6 +39,8 @@ namespace Controllers
             string targetName = Holder.transform.GetChild(0).name;
 
             TargetSpawner.targetPool[targetName.Substring(0, targetName.Length - 7)].Enqueue(this);
+
+            // 분열
         }
     }
 }
