@@ -101,6 +101,6 @@ public sealed class Target : MonoBehaviour
 
     public void GetForce(int particlesCount, int index)
     {
-        rb.AddForce(new Vector3(-particlesCount + 1 + index * 2, 0f, 1f) * 7f, ForceMode.Impulse);
+        rb.AddForce(new Vector3(-particlesCount + 1 + index * 2, 0f, 1f) * 3f, ForceMode.Impulse);
     }
 }

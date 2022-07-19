@@ -79,7 +79,7 @@ namespace Spawners
                 return;
             }
 
-            int ran = Random.Range(1, 9);
+            int ran = Random.Range(1, 17);
 
             List<int> spawnPointIdxList = new List<int>();
 
