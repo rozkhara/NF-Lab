@@ -7,9 +7,17 @@ public abstract class TargetController
 {
     public Target Holder { get; private set; }
 
+    /// <summary>
+    /// 타겟의 이름 (프리팹 이름과 동일해야 함)
+    /// </summary>
     public abstract string Name { get; }
 
+    /// <summary>
+    /// 타겟의 질량
+    /// </summary>
     public abstract int Mass { get; }
+
+    public bool IsParticle { get; private set; }
 
     private readonly List<TargetController> targets = new List<TargetController>();
 
@@ -18,6 +26,8 @@ public abstract class TargetController
     public bool IsResourceLoaded { get; private set; }
 
     protected GameObject resource;
+
+    private Rigidbody rb;
 
     public void AttachThis(Target target)
     {
@@ -52,6 +62,8 @@ public abstract class TargetController
         var t = resource.transform;
         t.parent = Holder.transform;
 
+        rb = Holder.transform.GetChild(0).GetComponent<Rigidbody>();
+
         Holder.gameObject.SetActive(false);
 
         IsResourceLoaded = true;
@@ -62,7 +74,6 @@ public abstract class TargetController
     public void Fission()
     {
         Holder.gameObject.SetActive(false);
-
         TargetSpawner.targetPool[Name].Enqueue(this);
 
         // 후보군 원자 선별
@@ -88,9 +99,9 @@ public abstract class TargetController
             }
 
             var target = TargetSpawner.targetPool[targets[tmp].Name].Dequeue();
-            particles.Add(target);
+            target.IsParticle = true;
 
-            Debug.Log(target.Name);
+            particles.Add(target);
 
             mass -= targets[tmp].Mass;
         }
@@ -99,6 +110,8 @@ public abstract class TargetController
         {
             particles[i].Holder.transform.position = Holder.transform.position + new Vector3(-particles.Count / 2 + i, 0f, 1f);
             particles[i].Holder.gameObject.SetActive(true);
+
+            particles[i].rb.AddForce(new Vector3(-particles.Count / 2 + i, 0f, 1f) * 7f, ForceMode.Impulse);
         }
     }
 }

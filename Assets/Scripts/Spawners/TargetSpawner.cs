@@ -8,7 +8,7 @@ namespace Spawners
 {
     public class TargetSpawner : MonoBehaviour
     {
-        public static Dictionary<string, Queue<TargetController>> targetPool = new Dictionary<string, Queue<TargetController>>();
+        public static readonly Dictionary<string, Queue<TargetController>> targetPool = new Dictionary<string, Queue<TargetController>>();
 
         private readonly Dictionary<int, string> targets = new Dictionary<int, string>();
 
@@ -58,7 +58,7 @@ namespace Spawners
             foreach (var targetGenerator in targetGenerators)
             {
                 targetGenerator.Pool = go;
-                targetGenerator.CreateTarget(30);
+                targetGenerator.CreateTarget(500);
                 targetPool.Add(targetGenerator.Name, targetGenerator.targets);
             }
 
@@ -79,7 +79,7 @@ namespace Spawners
                 return;
             }
 
-            int ran = Random.Range(1, 8);
+            int ran = Random.Range(1, 5);
 
             List<int> spawnPointIdxList = new List<int>();
 
