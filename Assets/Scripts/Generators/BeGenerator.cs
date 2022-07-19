@@ -23,6 +23,9 @@ namespace Generators
                     }
                 };
 
+                var rb = go.AddComponent<Rigidbody>();
+                rb.useGravity = false;
+
                 var target = go.AddComponent<Target>();
                 target.Controller = new BeController();
 

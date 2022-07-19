@@ -17,6 +17,9 @@ public abstract class TargetController
     /// </summary>
     public abstract int Mass { get; }
 
+    /// <summary>
+    /// 분열되어 나온 타겟인지
+    /// </summary>
     public bool IsParticle { get; private set; }
 
     private readonly List<TargetController> targets = new List<TargetController>();
@@ -26,8 +29,6 @@ public abstract class TargetController
     public bool IsResourceLoaded { get; private set; }
 
     protected GameObject resource;
-
-    private Rigidbody rb;
 
     public void AttachThis(Target target)
     {
@@ -61,8 +62,6 @@ public abstract class TargetController
 
         var t = resource.transform;
         t.parent = Holder.transform;
-
-        rb = Holder.transform.GetChild(0).GetComponent<Rigidbody>();
 
         Holder.gameObject.SetActive(false);
 
@@ -108,10 +107,10 @@ public abstract class TargetController
 
         for (int i = 0; i < particles.Count; i++)
         {
-            particles[i].Holder.transform.position = Holder.transform.position + new Vector3(-particles.Count / 2 + i, 0f, 1f);
+            particles[i].Holder.transform.position = Holder.transform.position + new Vector3(-particles.Count + 1 + i * 2, 0f, 1f);
             particles[i].Holder.gameObject.SetActive(true);
 
-            particles[i].rb.AddForce(new Vector3(-particles.Count / 2 + i, 0f, 1f) * 7f, ForceMode.Impulse);
+            particles[i].Holder.GetForce(particles.Count, i);
         }
     }
 }

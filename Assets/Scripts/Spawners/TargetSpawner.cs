@@ -67,7 +67,7 @@ namespace Spawners
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    spawnPoints.Add(new Vector3(-2 + i, 2 + j, 15f));
+                    spawnPoints.Add(new Vector3(-4 + i * 2, 2 + j * 2, 15f));
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace Spawners
                 return;
             }
 
-            int ran = Random.Range(1, 5);
+            int ran = Random.Range(1, 9);
 
             List<int> spawnPointIdxList = new List<int>();
 

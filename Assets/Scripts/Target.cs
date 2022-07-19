@@ -33,6 +33,8 @@ public sealed class Target : MonoBehaviour
     private void Awake()
     {
         allTarget.Add(this);
+
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -51,6 +53,14 @@ public sealed class Target : MonoBehaviour
         Controller = null;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        GetHit();
+
+        TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+        gameObject.SetActive(false);
+    }
+
     private static void UnloadResources()
     {
         allTarget.Clear();
@@ -63,14 +73,12 @@ public sealed class Target : MonoBehaviour
 
     private void Disappear()
     {
-        var pos = transform.GetChild(0).position;
+        var pos = transform.position;
 
-        if (pos.x < -7f || pos.x > 7f || pos.y < 1f || pos.y > 8f || pos.z > 20f)
+        if (pos.x < -7f || pos.x > 7f || pos.y < 1f || pos.y > 11f || pos.z > 20f)
         {
             TargetSpawner.targetPool[controller.Name].Enqueue(controller);
             gameObject.SetActive(false);
-
-            Debug.Log("확인!");
         }
     }
 
@@ -89,5 +97,10 @@ public sealed class Target : MonoBehaviour
         Life--;
 
         if (Life == 0) controller.Fission();
+    }
+
+    public void GetForce(int particlesCount, int index)
+    {
+        rb.AddForce(new Vector3(-particlesCount + 1 + index * 2, 0f, 1f) * 7f, ForceMode.Impulse);
     }
 }
