@@ -12,8 +12,6 @@ public sealed class Target : MonoBehaviour
     /// </summary>
     public int Life { get; set; }
 
-    private Rigidbody rb;
-
     private TargetController controller;
 
     /// <summary>
@@ -33,8 +31,6 @@ public sealed class Target : MonoBehaviour
     private void Awake()
     {
         allTarget.Add(this);
-
-        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -75,7 +71,7 @@ public sealed class Target : MonoBehaviour
     {
         var pos = transform.position;
 
-        if (pos.x < -7f || pos.x > 7f || pos.y < 1f || pos.y > 11f || pos.z > 20f)
+        if (pos.x < -7f || pos.x > 7f || pos.y < 1f || pos.y > 11f)
         {
             TargetSpawner.targetPool[controller.Name].Enqueue(controller);
             gameObject.SetActive(false);
@@ -94,13 +90,21 @@ public sealed class Target : MonoBehaviour
 
     public void GetHit()
     {
+        if (controller.IsParticle) return;
+
         Life--;
 
         if (Life == 0) controller.Fission();
     }
 
-    public void GetForce(int particlesCount, int index)
+    public IEnumerator MoveRoutine(int particlesCount, int index)
     {
-        rb.AddForce(new Vector3(-particlesCount + 1 + index * 2, 0f, 1f) * 3f, ForceMode.Impulse);
+        while (transform.position.z < 20f)
+        {
+            transform.Translate(new Vector3(-particlesCount + 1 + index * 2, 0f, 1f) * Time.deltaTime);
+            yield return null;
+        }
+
+        controller.IsParticle = false;
     }
 }

@@ -20,7 +20,7 @@ public abstract class TargetController
     /// <summary>
     /// 분열되어 나온 타겟인지
     /// </summary>
-    public bool IsParticle { get; private set; }
+    public bool IsParticle { get; set; }
 
     private readonly List<TargetController> targets = new List<TargetController>();
 
@@ -110,7 +110,7 @@ public abstract class TargetController
             particles[i].Holder.transform.position = Holder.transform.position + new Vector3(-particles.Count + 1 + i * 2, 0f, 1f);
             particles[i].Holder.gameObject.SetActive(true);
 
-            particles[i].Holder.GetForce(particles.Count, i);
+            particles[i].Holder.StartCoroutine(particles[i].Holder.MoveRoutine(particles.Count, i));
         }
     }
 }
