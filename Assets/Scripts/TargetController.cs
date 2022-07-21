@@ -112,6 +112,8 @@ public abstract class TargetController
             indices.Add(i);
         }
 
+        Debug.Log(particles.Count);
+
         for (int i = 0; i < particles.Count; i++)
         {
             var idx = Random.Range(0, indices.Count);
@@ -121,7 +123,7 @@ public abstract class TargetController
 
             indices.RemoveAt(idx);
 
-            particles[i].Holder.transform.position = Holder.transform.position + direction;
+            particles[i].Holder.transform.position = Holder.transform.position + direction * 2f;
             particles[i].Holder.gameObject.SetActive(true);
 
             particles[i].Holder.GetForce(direction);

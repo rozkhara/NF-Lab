@@ -58,6 +58,17 @@ public sealed class Target : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // 분열된 타겟끼리 충돌할 때
+        if (controller.IsParticle && collision.gameObject.tag == "Target")
+        {
+            // 둘 중 앞에 있는 타겟은 사라짐
+            var go = transform.position.z > collision.transform.position.z ? collision.gameObject : gameObject;
+            var con = go.transform.GetComponent<Target>().Controller;
+
+            TargetSpawner.targetPool[con.Name].Enqueue(con);
+            go.SetActive(false);
+        }
+
         // 타겟끼리 충돌할 때 (분열된 것들끼리 충돌 시 분열 안 함)
         if (!controller.IsParticle && collision.gameObject.tag == "Target")
         {
