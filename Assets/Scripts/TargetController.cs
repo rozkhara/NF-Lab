@@ -72,7 +72,7 @@ public abstract class TargetController
 
     protected abstract IEnumerator LoadResources();
 
-    public void Fission()
+    public void Fission(Vector3 pos)
     {
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
@@ -116,7 +116,7 @@ public abstract class TargetController
         {
             var idx = Random.Range(0, indices.Count);
 
-            var axis = (Holder.transform.position - GameManager.Instance.Player.transform.position).normalized;
+            var axis = (Holder.transform.position - pos).normalized;
             var direction = Quaternion.AngleAxis(45f * indices[idx], axis) * (axis + Vector3.ProjectOnPlane(Vector3.up, axis));
 
             indices.RemoveAt(idx);

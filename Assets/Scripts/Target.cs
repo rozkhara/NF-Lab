@@ -59,9 +59,9 @@ public sealed class Target : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 타겟끼리 충돌할 때 (분열된 것들끼리는 충돌 안 함)
-        if (!controller.IsParticle && collision.gameObject.tag == "Target")
+        if (!controller.IsParticle)
         {
-            GetHit();
+            GetHit(collision.transform.position);
 
             TargetSpawner.targetPool[controller.Name].Enqueue(controller);
             gameObject.SetActive(false);
@@ -128,13 +128,13 @@ public sealed class Target : MonoBehaviour
         }
     }
 
-    public void GetHit()
+    public void GetHit(Vector3 pos)
     {
         if (controller.IsParticle) return;
 
         Life--;
 
-        if (Life == 0) controller.Fission();
+        if (Life == 0) controller.Fission(pos);
     }
 
     public void GetForce(Vector3 direction)
