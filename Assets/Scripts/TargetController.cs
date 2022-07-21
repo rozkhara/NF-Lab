@@ -26,6 +26,10 @@ public abstract class TargetController
 
     private readonly List<TargetController> particles = new List<TargetController>();
 
+    private readonly List<int> indices = new List<int>();
+
+    // private readonly List<Vector3> directions = new List<Vector3>();
+
     public bool IsResourceLoaded { get; private set; }
 
     protected GameObject resource;
@@ -89,28 +93,40 @@ public abstract class TargetController
         // 분열
         while (mass > 0)
         {
-            int tmp = Random.Range(0, targets.Count);
+            int idx = Random.Range(0, targets.Count);
 
-            if (targets[tmp].Mass > mass)
+            if (targets[idx].Mass > mass)
             {
-                targets.RemoveAt(tmp);
+                targets.RemoveAt(idx);
                 continue;
             }
 
-            var target = TargetSpawner.targetPool[targets[tmp].Name].Dequeue();
+            var target = TargetSpawner.targetPool[targets[idx].Name].Dequeue();
             target.IsParticle = true;
 
             particles.Add(target);
 
-            mass -= targets[tmp].Mass;
+            mass -= targets[idx].Mass;
+        }
+
+        for (int i = 0; i < 8; i++)
+        {
+            indices.Add(i);
         }
 
         for (int i = 0; i < particles.Count; i++)
         {
-            particles[i].Holder.transform.position = Holder.transform.position + new Vector3(-particles.Count + 1 + i * 2, 0f, 1f);
+            var idx = Random.Range(0, indices.Count);
+
+            var axis = (Holder.transform.position - GameManager.Instance.Player.transform.position).normalized;
+            var direction = Quaternion.AngleAxis(45f * indices[idx], axis) * (axis + Vector3.ProjectOnPlane(Vector3.up, axis));
+
+            indices.RemoveAt(idx);
+
+            particles[i].Holder.transform.position = Holder.transform.position + direction * 2f;
             particles[i].Holder.gameObject.SetActive(true);
 
-            particles[i].Holder.GetForce(particles.Count, i);
+            particles[i].Holder.GetForce(direction);
         }
     }
 }

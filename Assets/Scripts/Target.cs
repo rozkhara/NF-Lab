@@ -45,6 +45,7 @@ public sealed class Target : MonoBehaviour
 
         Move();
         GetStuck();
+        Disappear();
         GameOver();
 
         controller.OnUpdate();
@@ -67,10 +68,18 @@ public sealed class Target : MonoBehaviour
         }
 
         // 위아래 벽에 충돌할 때
-        else if (collision.gameObject.tag == "VerticalCurtain") rb.AddForce(new Vector3(force.x, -force.y, force.z), ForceMode.Impulse);
+        else if (collision.gameObject.tag == "VerticalCurtain")
+        {
+            force.y = -force.y;
+            rb.AddForce(force, ForceMode.Impulse);
+        }
 
         // 좌우 벽에 충돌할 때
-        else if (collision.gameObject.tag == "HorizontalCurtain") rb.AddForce(new Vector3(-force.x, force.y, force.z), ForceMode.Impulse);
+        else if (collision.gameObject.tag == "HorizontalCurtain")
+        {
+            force.x = -force.x;
+            rb.AddForce(force, ForceMode.Impulse);
+        }
     }
 
     private static void UnloadResources()
@@ -98,6 +107,17 @@ public sealed class Target : MonoBehaviour
         }
     }
 
+    private void Disappear()
+    {
+        var pos = transform.position;
+
+        if (pos.x < -7f || pos.x > 7f || pos.y < 0f || pos.y > 13f)
+        {
+            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+            gameObject.SetActive(false);
+        }
+    }
+
     private void GameOver()
     {
         if (!GameManager.Instance.IsGameOver && transform.position.z <= 2f)
@@ -117,9 +137,10 @@ public sealed class Target : MonoBehaviour
         if (Life == 0) controller.Fission();
     }
 
-    public void GetForce(int particlesCount, int index)
+    public void GetForce(Vector3 direction)
     {
-        force = new Vector3(-particlesCount + 1 + index * 2, 0f, 1f) * 3f;
+        force = direction * 7f;
+
         rb.AddForce(force, ForceMode.Impulse);
     }
 }
