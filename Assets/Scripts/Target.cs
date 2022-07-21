@@ -58,24 +58,26 @@ public sealed class Target : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 타겟끼리 충돌할 때 (분열된 것들끼리는 충돌 안 함)
-        if (!controller.IsParticle)
+        // 타겟끼리 충돌할 때 (분열된 것들끼리 충돌 시 분열 안 함)
+        if (!controller.IsParticle && collision.gameObject.tag == "Target")
         {
-            GetHit(collision.transform.position);
+            // 뒷면에 맞으면 분열 안 함
+            if (transform.position.z > collision.transform.position.z) GetHit(collision.transform.position);
 
-            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
-            gameObject.SetActive(false);
+            var con = collision.transform.GetComponent<Target>().Controller;
+            TargetSpawner.targetPool[con.Name].Enqueue(con);
+            collision.gameObject.SetActive(false);
         }
 
         // 위아래 벽에 충돌할 때
-        else if (collision.gameObject.tag == "VerticalCurtain")
+        if (collision.gameObject.tag == "VerticalCurtain")
         {
             force.y = -force.y;
             rb.AddForce(force, ForceMode.Impulse);
         }
 
         // 좌우 벽에 충돌할 때
-        else if (collision.gameObject.tag == "HorizontalCurtain")
+        if (collision.gameObject.tag == "HorizontalCurtain")
         {
             force.x = -force.x;
             rb.AddForce(force, ForceMode.Impulse);
@@ -139,7 +141,7 @@ public sealed class Target : MonoBehaviour
 
     public void GetForce(Vector3 direction)
     {
-        force = direction * 7f;
+        force = direction * 15f;
 
         rb.AddForce(force, ForceMode.Impulse);
     }

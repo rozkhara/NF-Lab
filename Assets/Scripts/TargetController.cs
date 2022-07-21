@@ -121,7 +121,7 @@ public abstract class TargetController
 
             indices.RemoveAt(idx);
 
-            particles[i].Holder.transform.position = Holder.transform.position + direction * 2f;
+            particles[i].Holder.transform.position = Holder.transform.position + direction;
             particles[i].Holder.gameObject.SetActive(true);
 
             particles[i].Holder.GetForce(direction);

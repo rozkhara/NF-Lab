@@ -67,7 +67,7 @@ namespace Spawners
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    spawnPoints.Add(new Vector3(-4 + i * 2, 2 + j * 2, 15f));
+                    spawnPoints.Add(new Vector3(-2.1f + i * 1.05f, 1 + j * 1.05f, 15f));
                 }
             }
         }
