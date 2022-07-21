@@ -110,7 +110,7 @@ public abstract class TargetController
             particles[i].Holder.transform.position = Holder.transform.position + new Vector3(-particles.Count + 1 + i * 2, 0f, 1f);
             particles[i].Holder.gameObject.SetActive(true);
 
-            particles[i].Holder.StartCoroutine(particles[i].Holder.MoveRoutine(particles.Count, i));
+            particles[i].Holder.GetForce(particles.Count, i);
         }
     }
 }

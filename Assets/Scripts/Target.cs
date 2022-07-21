@@ -12,6 +12,10 @@ public sealed class Target : MonoBehaviour
     /// </summary>
     public int Life { get; set; }
 
+    private Rigidbody rb;
+
+    private Vector3 force;
+
     private TargetController controller;
 
     /// <summary>
@@ -31,6 +35,8 @@ public sealed class Target : MonoBehaviour
     private void Awake()
     {
         allTarget.Add(this);
+
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -38,7 +44,7 @@ public sealed class Target : MonoBehaviour
         if (!(controller is { IsResourceLoaded: true })) return;
 
         Move();
-        Disappear();
+        GetStuck();
         GameOver();
 
         controller.OnUpdate();
@@ -51,10 +57,20 @@ public sealed class Target : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GetHit();
+        // 타겟끼리 충돌할 때
+        if (collision.gameObject.tag == "Target")
+        {
+            GetHit();
 
-        TargetSpawner.targetPool[controller.Name].Enqueue(controller);
-        gameObject.SetActive(false);
+            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+            gameObject.SetActive(false);
+        }
+
+        // 위아래 벽에 충돌할 때
+        else if (collision.gameObject.tag == "VerticalCurtain") rb.AddForce(new Vector3(force.x, -force.y, force.z), ForceMode.Impulse);
+
+        // 좌우 벽에 충돌할 때
+        else if (collision.gameObject.tag == "HorizontalCurtain") rb.AddForce(new Vector3(-force.x, force.y, force.z), ForceMode.Impulse);
     }
 
     private static void UnloadResources()
@@ -67,14 +83,18 @@ public sealed class Target : MonoBehaviour
         if (!controller.IsParticle) transform.Translate(Vector3.back * 1f * Time.deltaTime);
     }
 
-    private void Disappear()
+    private void GetStuck()
     {
         var pos = transform.position;
 
-        if (pos.x < -7f || pos.x > 7f || pos.y < 1f || pos.y > 11f)
+        if (pos.z > 20f)
         {
-            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
-            gameObject.SetActive(false);
+            pos.z = 20f;
+            transform.position = pos;
+
+            rb.velocity = Vector3.zero;
+
+            controller.IsParticle = false;
         }
     }
 
@@ -97,14 +117,9 @@ public sealed class Target : MonoBehaviour
         if (Life == 0) controller.Fission();
     }
 
-    public IEnumerator MoveRoutine(int particlesCount, int index)
+    public void GetForce(int particlesCount, int index)
     {
-        while (transform.position.z < 20f)
-        {
-            transform.Translate(new Vector3(-particlesCount + 1 + index * 2, 0f, 1f) * Time.deltaTime);
-            yield return null;
-        }
-
-        controller.IsParticle = false;
+        force = new Vector3(-particlesCount + 1 + index * 2, 0f, 1f) * 3f;
+        rb.AddForce(force, ForceMode.Impulse);
     }
 }

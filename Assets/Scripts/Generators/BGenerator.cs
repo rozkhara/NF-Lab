@@ -22,8 +22,11 @@ namespace Generators
                     }
                 };
 
+                go.tag = "Target";
+
                 var rb = go.AddComponent<Rigidbody>();
                 rb.useGravity = false;
+                rb.freezeRotation = true;
 
                 var target = go.AddComponent<Target>();
                 target.Controller = new BController();
