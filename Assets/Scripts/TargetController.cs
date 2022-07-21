@@ -28,8 +28,6 @@ public abstract class TargetController
 
     private readonly List<int> indices = new List<int>();
 
-    // private readonly List<Vector3> directions = new List<Vector3>();
-
     public bool IsResourceLoaded { get; private set; }
 
     protected GameObject resource;
@@ -79,14 +77,14 @@ public abstract class TargetController
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
 
+        // 수소는 분열 안 함
+        if (Mass == 1) return;
+
         // 후보군 원자 선별
         foreach (var targetType in TargetSpawner.targetTypes)
         {
             if (targetType.Mass < Mass) targets.Add(targetType);
         }
-
-        // 수소는 분열 안 함
-        if (Mass == 1) return;
 
         int mass = Mass;
 

@@ -58,8 +58,8 @@ public sealed class Target : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 타겟끼리 충돌할 때
-        if (collision.gameObject.tag == "Target")
+        // 타겟끼리 충돌할 때 (분열된 것들끼리는 충돌 안 함)
+        if (!controller.IsParticle && collision.gameObject.tag == "Target")
         {
             GetHit();
 
