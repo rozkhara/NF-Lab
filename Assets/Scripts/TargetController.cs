@@ -112,9 +112,15 @@ public abstract class TargetController
             indices.Add(i);
         }
 
-        Debug.Log(particles.Count);
+        // 첫 번째 파티클은 충격의 진행 방향으로
+        var dir = (Holder.transform.position - pos).normalized;
 
-        for (int i = 0; i < particles.Count; i++)
+        particles[0].Holder.transform.position = Holder.transform.position + dir * 2f;
+        particles[0].Holder.gameObject.SetActive(true);
+
+        particles[0].Holder.GetForce(dir);
+
+        for (int i = 1; i < particles.Count; i++)
         {
             var idx = Random.Range(0, indices.Count);
 
