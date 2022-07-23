@@ -112,27 +112,84 @@ public abstract class TargetController
             indices.Add(i);
         }
 
-        // 첫 번째 파티클은 충격의 진행 방향으로
-        var dir = (Holder.transform.position - pos).normalized;
+        Vector3 axis = (Holder.transform.position - pos).normalized;
+        int key = -1;
 
-        particles[0].Holder.transform.position = Holder.transform.position + dir * 2f;
+        if (!CheckParticleInArea(pos, ref key))
+        {
+            switch (key)
+            {
+                // 좌우 벽 밖으로 나갈 때
+                case 0:
+                    Debug.Log("좌우");
+                    axis.x = -axis.x;
+                    break;
+                // 상하 벽 밖으로 나갈 때
+                case 1:
+                    Debug.Log("상하");
+                    axis.y = -axis.y;
+                    break;
+                // 꼭짓점 밖으로 나갈 때
+                case 2:
+                    Debug.Log("꼭짓점");
+                    axis.x = -axis.x;
+                    axis.y = -axis.y;
+                    break;
+            }
+        }
+
+        // 첫 번째 파티클은 충격의 진행 방향으로
+        particles[0].Holder.transform.position = Holder.transform.position + axis * 2f;
         particles[0].Holder.gameObject.SetActive(true);
 
-        particles[0].Holder.GetForce(dir);
+        particles[0].Holder.GetForce(axis);
+
+        var normal = Vector3.ProjectOnPlane(Vector3.up, axis).normalized;
 
         for (int i = 1; i < particles.Count; i++)
         {
             var idx = Random.Range(0, indices.Count);
-
-            var axis = (Holder.transform.position - pos).normalized;
-            var direction = Quaternion.AngleAxis(45f * indices[idx], axis) * (axis + Vector3.ProjectOnPlane(Vector3.up, axis));
+            var direction = Quaternion.AngleAxis(45f * indices[idx], axis) * (axis + normal);
 
             indices.RemoveAt(idx);
 
             particles[i].Holder.transform.position = Holder.transform.position + direction * 2f;
             particles[i].Holder.gameObject.SetActive(true);
 
+            Debug.Log(particles[i].Holder.transform.position);
+
             particles[i].Holder.GetForce(direction);
         }
+    }
+
+    private bool CheckParticleInArea(Vector3 pos, ref int key)
+    {
+        var axis = (Holder.transform.position - pos).normalized;
+        var normal = Vector3.ProjectOnPlane(Vector3.up, axis).normalized;
+
+        for (int i = 0; i < 8; i++)
+        {
+            var direction = Quaternion.AngleAxis(45f * indices[i], axis) * (axis + normal);
+            var vec = Holder.transform.position + direction * 2f;
+
+            if ((vec.x <= -2.4f || vec.x >= 2.4f) && vec.y > 0.7f && vec.y < 6.4f)
+            {
+                if (key == 1) key = 2;
+                else key = 0;
+            }
+
+            if (vec.x > -2.4f && vec.x < 2.4f && (vec.y <= 0.7f || vec.y >= 6.4f))
+            {
+                if (key == 0) key = 2;
+                else key = 1;
+            }
+
+            if ((vec.x <= -2.4f || vec.x >= 2.4f) && (vec.y <= 0.7f || vec.y >= 6.4f)) key = 2;
+
+            if (key == 2) return false;
+        }
+
+        if (key == -1) return true;
+        else return false;
     }
 }

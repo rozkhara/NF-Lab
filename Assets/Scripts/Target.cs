@@ -45,7 +45,6 @@ public sealed class Target : MonoBehaviour
 
         Move();
         GetStuck();
-        Disappear();
         GameOver();
 
         controller.OnUpdate();
@@ -117,17 +116,6 @@ public sealed class Target : MonoBehaviour
             rb.velocity = Vector3.zero;
 
             controller.IsParticle = false;
-        }
-    }
-
-    private void Disappear()
-    {
-        var pos = transform.position;
-
-        if (pos.x < -7f || pos.x > 7f || pos.y < 0f || pos.y > 13f)
-        {
-            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
-            gameObject.SetActive(false);
         }
     }
 
