@@ -80,7 +80,7 @@ namespace Spawners
             }
 
             // 스폰 개수 설정
-            int ran = Random.Range(1, 2);
+            int ran = Random.Range(1, 5);
 
             List<int> spawnPointIdxList = new List<int>();
 

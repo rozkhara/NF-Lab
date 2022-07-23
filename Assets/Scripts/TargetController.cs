@@ -77,8 +77,6 @@ public abstract class TargetController
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
 
-        Debug.Log(Holder.transform.position);
-
         // 수소는 분열 안 함
         if (Mass == 1) return;
 
@@ -109,6 +107,18 @@ public abstract class TargetController
             mass -= targets[idx].Mass;
         }
 
+        #region Debug
+        /*
+        for (int i = 0; i < 8; i++)
+        {
+            var target = TargetSpawner.targetPool["TargetH"].Dequeue();
+            target.IsParticle = true;
+
+            particles.Add(target);
+        }
+        */
+        #endregion
+
         for (int i = 0; i < 8; i++)
         {
             indices.Add(i);
@@ -124,17 +134,14 @@ public abstract class TargetController
             {
                 // 좌우 벽 밖으로 나갈 때
                 case 0:
-                    Debug.Log("좌우");
                     axis.x = -axis.x;
                     break;
                 // 상하 벽 밖으로 나갈 때
                 case 1:
-                    Debug.Log("상하");
                     axis.y = -axis.y;
                     break;
                 // 꼭짓점 밖으로 나갈 때
                 case 2:
-                    Debug.Log("꼭짓점");
                     axis.x = -axis.x;
                     axis.y = -axis.y;
                     break;
@@ -142,7 +149,7 @@ public abstract class TargetController
         }
 
         // 첫 번째 파티클은 충격의 진행 방향으로
-        particles[0].Holder.transform.position = Holder.transform.position + axis * 1.7f;
+        particles[0].Holder.transform.position = Holder.transform.position + axis * 1.1f;
         particles[0].Holder.gameObject.SetActive(true);
 
         particles[0].Holder.GetForce(axis);
@@ -152,14 +159,12 @@ public abstract class TargetController
         for (int i = 1; i < particles.Count; i++)
         {
             var idx = Random.Range(0, indices.Count);
-            var direction = Quaternion.AngleAxis(45f * indices[idx], axis) * (axis + normal);
+            var direction = Quaternion.AngleAxis(45f * indices[idx], axis) * (axis * 1.1f + normal * 1.35f);
 
             indices.RemoveAt(idx);
 
-            particles[i].Holder.transform.position = Holder.transform.position + direction * 1.7f;
+            particles[i].Holder.transform.position = Holder.transform.position + direction;
             particles[i].Holder.gameObject.SetActive(true);
-
-            Debug.Log(particles[i].Holder.transform.position);
 
             particles[i].Holder.GetForce(direction);
         }
@@ -172,8 +177,8 @@ public abstract class TargetController
 
         for (int i = 0; i < 8; i++)
         {
-            var direction = Quaternion.AngleAxis(45f * indices[i], axis) * (axis + normal);
-            var vec = Holder.transform.position + direction * 1.7f;
+            var direction = Quaternion.AngleAxis(45f * indices[i], axis) * (axis * 1.1f + normal * 1.35f);
+            var vec = Holder.transform.position + direction;
 
             if ((vec.x <= -2.45f || vec.x >= 2.45f) && vec.y > 0.65f && vec.y < 6.45f) key = key == 1 ? 2 : 0;
 

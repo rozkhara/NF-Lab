@@ -76,7 +76,13 @@ public sealed class Gun : MonoBehaviour
     {
         if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hitInfo))
         {
-            if (hitInfo.transform.tag == "Target") hitInfo.transform.GetComponentInParent<Target>().GetHit(transform.parent.position);
+            var pos = hitInfo.transform.position;
+
+            var dir = pos - new Vector3(0f, 3.1f, pos.z);
+            dir.z += dir.magnitude;
+            dir = dir.normalized;
+
+            if (hitInfo.transform.tag == "Target") hitInfo.transform.GetComponentInParent<Target>().GetHit(pos - dir);
         }
     }
 
