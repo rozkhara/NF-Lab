@@ -110,10 +110,10 @@ public sealed class Target : MonoBehaviour
 
         if (pos.z > 20f)
         {
+            rb.velocity = Vector3.zero;
+
             pos.z = 20f;
             transform.position = pos;
-
-            rb.velocity = Vector3.zero;
 
             controller.IsParticle = false;
         }

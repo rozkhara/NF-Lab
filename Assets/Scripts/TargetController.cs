@@ -77,6 +77,8 @@ public abstract class TargetController
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
 
+        Debug.Log(Holder.transform.position);
+
         // 수소는 분열 안 함
         if (Mass == 1) return;
 
@@ -115,6 +117,7 @@ public abstract class TargetController
         Vector3 axis = (Holder.transform.position - pos).normalized;
         int key = -1;
 
+        // 벽 밖으로 나갈 것 같으면 생성 위치를 틀어줌
         if (!CheckParticleInArea(pos, ref key))
         {
             switch (key)
@@ -139,7 +142,7 @@ public abstract class TargetController
         }
 
         // 첫 번째 파티클은 충격의 진행 방향으로
-        particles[0].Holder.transform.position = Holder.transform.position + axis * 2f;
+        particles[0].Holder.transform.position = Holder.transform.position + axis * 1.7f;
         particles[0].Holder.gameObject.SetActive(true);
 
         particles[0].Holder.GetForce(axis);
@@ -153,7 +156,7 @@ public abstract class TargetController
 
             indices.RemoveAt(idx);
 
-            particles[i].Holder.transform.position = Holder.transform.position + direction * 2f;
+            particles[i].Holder.transform.position = Holder.transform.position + direction * 1.7f;
             particles[i].Holder.gameObject.SetActive(true);
 
             Debug.Log(particles[i].Holder.transform.position);
@@ -170,21 +173,13 @@ public abstract class TargetController
         for (int i = 0; i < 8; i++)
         {
             var direction = Quaternion.AngleAxis(45f * indices[i], axis) * (axis + normal);
-            var vec = Holder.transform.position + direction * 2f;
+            var vec = Holder.transform.position + direction * 1.7f;
 
-            if ((vec.x <= -2.4f || vec.x >= 2.4f) && vec.y > 0.7f && vec.y < 6.4f)
-            {
-                if (key == 1) key = 2;
-                else key = 0;
-            }
+            if ((vec.x <= -2.45f || vec.x >= 2.45f) && vec.y > 0.65f && vec.y < 6.45f) key = key == 1 ? 2 : 0;
 
-            if (vec.x > -2.4f && vec.x < 2.4f && (vec.y <= 0.7f || vec.y >= 6.4f))
-            {
-                if (key == 0) key = 2;
-                else key = 1;
-            }
+            if (vec.x > -2.45f && vec.x < 2.45f && (vec.y <= 0.65f || vec.y >= 6.45f)) key = key == 0 ? 2 : 1;
 
-            if ((vec.x <= -2.4f || vec.x >= 2.4f) && (vec.y <= 0.7f || vec.y >= 6.4f)) key = 2;
+            if ((vec.x <= -2.45f || vec.x >= 2.45f) && (vec.y <= 0.65f || vec.y >= 6.45f)) key = 2;
 
             if (key == 2) return false;
         }
