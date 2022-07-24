@@ -79,10 +79,13 @@ public sealed class Gun : MonoBehaviour
             var pos = hitInfo.transform.position;
 
             var dir = pos - new Vector3(0f, 3.1f, pos.z);
-            dir.z += dir.magnitude;
+            dir.z += dir.magnitude * 1.3f;
             dir = dir.normalized;
 
-            if (hitInfo.transform.tag == "Target") hitInfo.transform.GetComponentInParent<Target>().GetHit(pos - dir);
+            if (hitInfo.transform.tag == "Target" && hitInfo.transform.GetComponentInParent<Target>().Controller.CheckParticleRoute(dir))
+            {
+                hitInfo.transform.GetComponentInParent<Target>().GetHit(pos - dir);
+            }
         }
     }
 

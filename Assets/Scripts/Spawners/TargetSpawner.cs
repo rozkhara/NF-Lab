@@ -70,6 +70,9 @@ namespace Spawners
                     spawnPoints.Add(new Vector3(-2.1f + i * 1.05f, 1 + j * 1.05f, 15f));
                 }
             }
+
+            // 정가운데에는 스폰 안되게
+            spawnPoints.RemoveAt(12);
         }
         private void Update()
         {
@@ -84,7 +87,7 @@ namespace Spawners
 
             List<int> spawnPointIdxList = new List<int>();
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 24; i++)
             {
                 spawnPointIdxList.Add(i);
             }

@@ -166,7 +166,7 @@ public abstract class TargetController
             particles[i].Holder.transform.position = Holder.transform.position + direction;
             particles[i].Holder.gameObject.SetActive(true);
 
-            particles[i].Holder.GetForce(direction);
+            particles[i].Holder.GetForce(direction.normalized);
         }
     }
 
@@ -177,7 +177,7 @@ public abstract class TargetController
 
         for (int i = 0; i < 8; i++)
         {
-            var direction = Quaternion.AngleAxis(45f * indices[i], axis) * (axis * 1.1f + normal * 1.35f);
+            var direction = Quaternion.AngleAxis(45f * i, axis) * (axis * 1.1f + normal * 1.35f);
             var vec = Holder.transform.position + direction;
 
             if ((vec.x <= -2.45f || vec.x >= 2.45f) && vec.y > 0.65f && vec.y < 6.45f) key = key == 1 ? 2 : 0;
@@ -191,5 +191,21 @@ public abstract class TargetController
 
         if (key == -1) return true;
         else return false;
+    }
+
+    public bool CheckParticleRoute(Vector3 axis)
+    {
+        if (axis.z <= 0) return false;
+
+        var normal = Vector3.ProjectOnPlane(Vector3.up, axis).normalized;
+
+        for (int i = 0; i < 8; i++)
+        {
+            var direction = Quaternion.AngleAxis(45f * i, axis) * (axis * 1.1f + normal * 1.35f);
+
+            if (direction.z <= 0) return false;
+        }
+
+        return true;
     }
 }

@@ -45,6 +45,7 @@ public sealed class Target : MonoBehaviour
 
         Move();
         GetStuck();
+        Disappear();
         GameOver();
 
         controller.OnUpdate();
@@ -57,24 +58,47 @@ public sealed class Target : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 분열된 타겟끼리 충돌할 때
-        if (controller.IsParticle && collision.gameObject.tag == "Target")
+        // 분열된 타겟끼리 충돌할 때 (분열 안 함)
+        if (controller.IsParticle && collision.gameObject.tag == "Target" && collision.transform.GetComponent<Target>().Controller.IsParticle)
         {
-            // 둘 중 앞에 있는 타겟은 사라짐
-            var go = transform.position.z > collision.transform.position.z ? collision.gameObject : gameObject;
-            var con = go.transform.GetComponent<Target>().Controller;
+            GameObject go;
+
+            // 뒤에 있는 타겟은 튕겨남
+            if (transform.position.z > collision.transform.position.z)
+            {
+                go = collision.gameObject;
+                var back = gameObject;
+
+                back.GetComponent<Target>().GetForce((transform.position - collision.transform.position).normalized);
+            }
+            else
+            {
+                go = gameObject;
+                var back = collision.gameObject;
+
+                back.GetComponent<Target>().GetForce((collision.transform.position - transform.position).normalized);
+            }
+
+            // 앞에 있는 타겟은 사라짐
+            var con = go.GetComponent<Target>().Controller;
 
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             go.SetActive(false);
         }
 
-        // 타겟끼리 충돌할 때 (분열된 것들끼리 충돌 시 분열 안 함)
+        // 분열된 타겟과 고정된 타겟이 충돌할 때
         if (!controller.IsParticle && collision.gameObject.tag == "Target")
         {
-            // 뒷면에 맞으면 분열 안 함
-            if (transform.position.z > collision.transform.position.z) GetHit(collision.transform.position);
+            // 앞으로 튀어나가지 않게 분열
+            if (controller.CheckParticleRoute((transform.position - collision.transform.position).normalized)) GetHit(collision.transform.position);
+            else
+            {
+                TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+                gameObject.SetActive(false);
+            }
 
-            var con = collision.transform.GetComponent<Target>().Controller;
+            var con = collision.gameObject.GetComponent<Target>().Controller;
+
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             collision.gameObject.SetActive(false);
         }
@@ -116,6 +140,17 @@ public sealed class Target : MonoBehaviour
             transform.position = pos;
 
             controller.IsParticle = false;
+        }
+    }
+
+    private void Disappear()
+    {
+        var pos = transform.position;
+
+        if (pos.x <= -3f || pos.x >= 3f || pos.y <= 0.1f || pos.y >= 7f)
+        {
+            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+            gameObject.SetActive(false);
         }
     }
 

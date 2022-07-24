@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Player.transform.GetComponent<TargetSpawner>().enabled = false;
+        Player.GetComponent<TargetSpawner>().enabled = false;
 
         IsGameOver = true;
 

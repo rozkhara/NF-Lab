@@ -12,7 +12,6 @@ namespace Generators
 
         public override void CreateTarget(int count)
         {
-            
             for (int i = 0; i < count; i++)
             {
                 var go = new GameObject
