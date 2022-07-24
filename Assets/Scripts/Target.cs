@@ -84,6 +84,8 @@ public sealed class Target : MonoBehaviour
 
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             go.SetActive(false);
+            int x = Random.Range(1, 4);
+            SoundManager.Instance.PlaySFXSound("targetHit" + x);
         }
 
         // 분열된 타겟과 고정된 타겟이 충돌할 때
@@ -101,6 +103,8 @@ public sealed class Target : MonoBehaviour
 
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             collision.gameObject.SetActive(false);
+            int x = Random.Range(1, 4);
+            SoundManager.Instance.PlaySFXSound("targetHit" + x);
         }
 
         // 위아래 벽에 충돌할 때
@@ -125,7 +129,7 @@ public sealed class Target : MonoBehaviour
 
     private void Move()
     {
-        if (!controller.IsParticle) transform.Translate(Vector3.back * 1f * Time.deltaTime);
+        if (!controller.IsParticle) transform.Translate(1f * Time.deltaTime * Vector3.back);
     }
 
     private void GetStuck()
@@ -169,7 +173,6 @@ public sealed class Target : MonoBehaviour
         if (controller.IsParticle) return;
 
         Life--;
-
         if (Life == 0) controller.Fission(pos);
     }
 
@@ -178,5 +181,11 @@ public sealed class Target : MonoBehaviour
         force = direction * 15f;
 
         rb.AddForce(force, ForceMode.Impulse);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, this.gameObject.GetComponentInChildren<SphereCollider>().radius);
     }
 }

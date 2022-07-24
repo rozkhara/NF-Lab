@@ -76,6 +76,8 @@ public abstract class TargetController
     {
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
+        int x = Random.Range(1, 4);
+        SoundManager.Instance.PlaySFXSound("targetHit" + x);
 
         // 수소는 분열 안 함
         if (Mass == 1) return;
