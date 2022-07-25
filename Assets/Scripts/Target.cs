@@ -85,6 +85,8 @@ public sealed class Target : MonoBehaviour
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             go.SetActive(false);
 
+            ScoreManager.Instance.IncreaseScore(controller.Score);
+
             int x = Random.Range(1, 4);
             SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
         }
@@ -98,6 +100,11 @@ public sealed class Target : MonoBehaviour
             {
                 TargetSpawner.targetPool[controller.Name].Enqueue(controller);
                 gameObject.SetActive(false);
+
+                ScoreManager.Instance.IncreaseScore(controller.Score);
+
+                int x = Random.Range(1, 4);
+                SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
             }
 
             var con = collision.gameObject.GetComponent<Target>().Controller;
@@ -105,8 +112,7 @@ public sealed class Target : MonoBehaviour
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             collision.gameObject.SetActive(false);
 
-            int x = Random.Range(1, 4);
-            SoundManager.Instance.PlaySFXSound("targetHit" + x,0.2f);
+            ScoreManager.Instance.IncreaseScore(con.Score);
         }
 
         // 위아래 벽에 충돌할 때

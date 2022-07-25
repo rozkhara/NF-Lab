@@ -18,6 +18,11 @@ public abstract class TargetController
     public abstract int Mass { get; }
 
     /// <summary>
+    ///  타겟의 점수
+    /// </summary>
+    public abstract int Score { get; }
+
+    /// <summary>
     /// 분열되어 나온 타겟인지
     /// </summary>
     public bool IsParticle { get; set; }
@@ -77,9 +82,10 @@ public abstract class TargetController
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
 
+        ScoreManager.Instance.IncreaseScore(Score);
+
         int x = Random.Range(1, 4);
         SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
-
 
         // 수소는 분열 안 함
         if (Mass == 1) return;

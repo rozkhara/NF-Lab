@@ -13,6 +13,8 @@ namespace Controllers
 
         public override int Mass => 12;
 
+        public override int Score => 6;
+
         public override void OnUpdate()
         {
 

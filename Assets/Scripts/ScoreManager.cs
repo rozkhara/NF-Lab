@@ -5,31 +5,45 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance { get; private set; }
-
     public GameObject scoreObject;
     private TextMeshProUGUI scoreText;
-    public int Score { get; private set; }
+
+    private int score;
+
+    private static ScoreManager instance;
+    public static ScoreManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<ScoreManager>();
+            }
+
+            return instance;
+        }
+    }
 
     private void Awake()
     {
+
         scoreText = scoreObject.GetComponent<TextMeshProUGUI>();
-        Score = 0;
+        score = 0;
     }
 
     public void Update()
     {
-        scoreText.text = "Score: " + Score.ToString();
+        scoreText.text = "Score: " + score.ToString();
     }
 
     public void IncreaseScore(int increment)
     {
-        Score += increment;
+        score += increment;
     }
     
     public void ResetScore()
     {
-        Score = 0;
+        score = 0;
     }
 
 }
