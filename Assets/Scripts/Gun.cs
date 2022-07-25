@@ -96,20 +96,20 @@ public sealed class Gun : MonoBehaviour
     {
         Vector3 recoilBack = new Vector3(0.3f, originPos.y, originPos.z);
 
-        transform.localPosition = originPos;
-
         // 반동 시작
-        while (transform.localPosition.x <= 0.3f - 0.02f)
+        while (transform.localPosition.x <= 0.3f - 0.01f)
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, recoilBack, 0.4f);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, recoilBack, 100f * Time.deltaTime);
             yield return null;
         }
 
         // 원위치
-        while (transform.localPosition != originPos)
+        while (transform.localPosition.x > originPos.x + 0.01f)
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, 0.1f);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, originPos, 100f * Time.deltaTime);
             yield return null;
         }
+
+        transform.localPosition = originPos;
     }
 }
