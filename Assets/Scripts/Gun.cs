@@ -68,7 +68,7 @@ public sealed class Gun : MonoBehaviour
         firingRateCounter = FiringRate;
 
         int x = Random.Range(1, 3);
-        SoundManager.Instance.PlaySFXSound("gunFire" + x, 0.7f);
+        SoundManager.Instance.PlaySFXSound("gunFire" + x, 0.4f);
 
         Hit();
 

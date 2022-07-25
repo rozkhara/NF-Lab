@@ -86,7 +86,7 @@ public sealed class Target : MonoBehaviour
             go.SetActive(false);
 
             int x = Random.Range(1, 4);
-            SoundManager.Instance.PlaySFXSound("targetHit" + x);
+            SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
         }
 
         // 분열된 타겟과 고정된 타겟이 충돌할 때
@@ -106,7 +106,7 @@ public sealed class Target : MonoBehaviour
             collision.gameObject.SetActive(false);
 
             int x = Random.Range(1, 4);
-            SoundManager.Instance.PlaySFXSound("targetHit" + x);
+            SoundManager.Instance.PlaySFXSound("targetHit" + x,0.2f);
         }
 
         // 위아래 벽에 충돌할 때
