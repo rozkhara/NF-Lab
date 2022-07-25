@@ -76,6 +76,7 @@ public abstract class TargetController
     {
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
+
         int x = Random.Range(1, 4);
         SoundManager.Instance.PlaySFXSound("targetHit" + x);
 

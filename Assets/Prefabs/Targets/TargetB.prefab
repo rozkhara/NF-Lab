@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3769449878237187275}
   - component: {fileID: 3013963774735425029}
   - component: {fileID: 6138469076865083043}
-  - component: {fileID: 11218549591248129}
+  - component: {fileID: 5220352176556773233}
   m_Layer: 0
   m_Name: TargetB
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7706701386403094164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &11218549591248129
-SphereCollider:
+--- !u!64 &5220352176556773233
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,6 +94,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8567623707547845564, guid: 6460c1543be86c24a81948c322141571, type: 3}

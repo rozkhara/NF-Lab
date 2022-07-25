@@ -59,7 +59,7 @@ public sealed class Target : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 분열된 타겟끼리 충돌할 때 (분열 안 함)
-        if (controller.IsParticle && collision.gameObject.tag == "Target" && collision.transform.GetComponent<Target>().Controller.IsParticle)
+        if (controller.IsParticle && collision.gameObject.CompareTag("Target") && collision.transform.GetComponent<Target>().Controller.IsParticle)
         {
             GameObject go;
 
@@ -84,12 +84,13 @@ public sealed class Target : MonoBehaviour
 
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             go.SetActive(false);
+
             int x = Random.Range(1, 4);
             SoundManager.Instance.PlaySFXSound("targetHit" + x);
         }
 
         // 분열된 타겟과 고정된 타겟이 충돌할 때
-        if (!controller.IsParticle && collision.gameObject.tag == "Target")
+        if (!controller.IsParticle && collision.gameObject.CompareTag("Target"))
         {
             // 앞으로 튀어나가지 않게 분열
             if (controller.CheckParticleRoute((transform.position - collision.transform.position).normalized)) GetHit(collision.transform.position);
@@ -103,19 +104,20 @@ public sealed class Target : MonoBehaviour
 
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             collision.gameObject.SetActive(false);
+
             int x = Random.Range(1, 4);
             SoundManager.Instance.PlaySFXSound("targetHit" + x);
         }
 
         // 위아래 벽에 충돌할 때
-        if (collision.gameObject.tag == "VerticalCurtain")
+        if (collision.gameObject.CompareTag("VerticalCurtain"))
         {
             force.y = -force.y;
             rb.AddForce(force, ForceMode.Impulse);
         }
 
         // 좌우 벽에 충돌할 때
-        if (collision.gameObject.tag == "HorizontalCurtain")
+        if (collision.gameObject.CompareTag("HorizontalCurtain"))
         {
             force.x = -force.x;
             rb.AddForce(force, ForceMode.Impulse);
@@ -173,6 +175,7 @@ public sealed class Target : MonoBehaviour
         if (controller.IsParticle) return;
 
         Life--;
+
         if (Life == 0) controller.Fission(pos);
     }
 
@@ -181,11 +184,5 @@ public sealed class Target : MonoBehaviour
         force = direction * 15f;
 
         rb.AddForce(force, ForceMode.Impulse);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, this.gameObject.GetComponentInChildren<SphereCollider>().radius);
     }
 }
