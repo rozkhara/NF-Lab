@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3769449878237187275}
   - component: {fileID: 3013963774735425029}
   - component: {fileID: 6138469076865083043}
-  - component: {fileID: 9163141341096538112}
+  - component: {fileID: 1592377445394515481}
   m_Layer: 0
   m_Name: TargetH
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &9163141341096538112
-MeshCollider:
+--- !u!135 &1592377445394515481
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,7 +94,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7549234974165344838, guid: ff747f97a3f4d7b4cba12ec805f2d30c, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.9064647
+  m_Center: {x: 0, y: 0, z: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3769449878237187275}
   - component: {fileID: 3013963774735425029}
   - component: {fileID: 6138469076865083043}
-  - component: {fileID: 4233852527433540252}
+  - component: {fileID: 7576031889072943290}
   m_Layer: 0
   m_Name: TargetLi
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4233852527433540252
-MeshCollider:
+--- !u!135 &7576031889072943290
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,7 +94,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5211372746540569822, guid: a5ef019a7f0e4f543bdec2788c795d33, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.8745831
+  m_Center: {x: 0, y: 0, z: 0}
