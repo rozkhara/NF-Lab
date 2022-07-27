@@ -5,12 +5,14 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public GameObject scoreObject;
+    [SerializeField] private GameObject scoreObject;
+
     private TextMeshProUGUI scoreText;
 
     private int score;
 
     private static ScoreManager instance;
+
     public static ScoreManager Instance
     {
         get
@@ -26,8 +28,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-
         scoreText = scoreObject.GetComponent<TextMeshProUGUI>();
+
         score = 0;
     }
 

@@ -162,7 +162,7 @@ public abstract class TargetController
         particles[0].Holder.transform.position = Holder.transform.position + axis * 1.1f;
         particles[0].Holder.gameObject.SetActive(true);
 
-        particles[0].Holder.GetForce(axis);
+        particles[0].Holder.StartCoroutine(particles[0].Holder.GetForce(axis));
 
         var normal = Vector3.ProjectOnPlane(Vector3.up, axis).normalized;
 
@@ -176,7 +176,7 @@ public abstract class TargetController
             particles[i].Holder.transform.position = Holder.transform.position + direction;
             particles[i].Holder.gameObject.SetActive(true);
 
-            particles[i].Holder.GetForce(direction.normalized);
+            particles[i].Holder.StartCoroutine(particles[i].Holder.GetForce(direction.normalized));
         }
     }
 

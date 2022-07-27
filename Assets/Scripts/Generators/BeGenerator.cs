@@ -27,6 +27,7 @@ namespace Generators
                 var rb = go.AddComponent<Rigidbody>();
                 rb.useGravity = false;
                 rb.freezeRotation = true;
+                rb.drag = dragValue;
 
                 var target = go.AddComponent<Target>();
                 target.Controller = new BeController();

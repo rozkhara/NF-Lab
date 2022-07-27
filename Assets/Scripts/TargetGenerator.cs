@@ -11,5 +11,7 @@ public abstract class TargetGenerator
 
     public abstract string Name { get; }
 
+    protected float dragValue = 0.2f;
+
     public abstract void CreateTarget(int count);
 }
