@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateRotate()
     {
+        if (GameManager.Instance.IsGamePaused) return;
+        
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 

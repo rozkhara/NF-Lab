@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class CameraRotate : MonoBehaviour
 {
-    private float rotCamXAxisSpeed; // 수직
-    private float rotCamYAxisSpeed; // 수평
+    /// <summary>
+    /// 수직 마우스 감도
+    /// </summary>
+    public float XSensitivity { get; set; }
+
+    /// <summary>
+    /// 수평 마우스 감도
+    /// </summary>
+    public float YSensitivity { get; set; }
 
     private float limitMinX = -90;
     private float limitMaxX = 90;
@@ -15,16 +22,18 @@ public class CameraRotate : MonoBehaviour
     private float eulerAngleX;
     private float eulerAngleY;
 
-    private void Awake()
+    private void Start()
     {
-        rotCamXAxisSpeed = 3f;
-        rotCamYAxisSpeed = 5f;
+        GameManager.Instance.CamRotate = this;
+
+        XSensitivity = 3f;
+        YSensitivity = 5f;
     }
 
     public void UpdateRotate(float mouseX, float mouseY)
     {
-        eulerAngleY += mouseX * rotCamYAxisSpeed;
-        eulerAngleX -= mouseY * rotCamXAxisSpeed;
+        eulerAngleY += mouseX * YSensitivity;
+        eulerAngleX -= mouseY * XSensitivity;
 
         eulerAngleX = ClampAngle(eulerAngleX, limitMinX, limitMaxX);
         eulerAngleY = ClampAngle(eulerAngleY, limitMinY, limitMaxY);

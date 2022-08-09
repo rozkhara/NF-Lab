@@ -34,6 +34,7 @@ public sealed class Gun : MonoBehaviour
     private void Awake()
     {
         originPos = transform.localPosition;
+
         cam = Camera.main;
     }
 
@@ -60,7 +61,7 @@ public sealed class Gun : MonoBehaviour
 
     private void TryFire()
     {
-        if (Input.GetButton("Fire1") && firingRateCounter <= 0) Fire();
+        if (!GameManager.Instance.IsGamePaused && Input.GetButton("Fire1") && firingRateCounter <= 0) Fire();
     }
 
     private void Fire()
