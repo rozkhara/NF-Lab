@@ -28,6 +28,10 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != this) Destroy(this.gameObject); // 이미 ScoreManager가 있으면 이 ScoreManager 삭제
+
+        DontDestroyOnLoad(this.gameObject); // 여러 씬에서 사용
+
         scoreText = scoreObject.GetComponent<TextMeshProUGUI>();
 
         score = 0;

@@ -90,16 +90,18 @@ public sealed class Target : MonoBehaviour
                 yield return StartCoroutine(back.GetComponent<Target>().GetForce((collision.transform.position - transform.position).normalized));
             }
 
+            ScoreManager.Instance.IncreaseScore(controller.Score);
+
+            int x = Random.Range(1, 4);
+            SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
+
+            ParticleManager.Instance.PlayParticle("HitEffect", go.transform.position);
+
             // 앞에 있는 타겟은 사라짐
             var con = go.GetComponent<Target>().Controller;
 
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             go.SetActive(false);
-
-            ScoreManager.Instance.IncreaseScore(controller.Score);
-
-            int x = Random.Range(1, 4);
-            SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
         }
 
         // 분열된 타겟과 고정된 타겟이 충돌할 때
@@ -109,13 +111,15 @@ public sealed class Target : MonoBehaviour
             if (controller.CheckParticleRoute((transform.position - collision.transform.position).normalized)) GetHit(collision.transform.position);
             else
             {
-                TargetSpawner.targetPool[controller.Name].Enqueue(controller);
-                gameObject.SetActive(false);
-
                 ScoreManager.Instance.IncreaseScore(controller.Score);
 
                 int x = Random.Range(1, 4);
                 SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
+
+                ParticleManager.Instance.PlayParticle("HitEffect", transform.position);
+
+                TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+                gameObject.SetActive(false);
             }
 
             var con = collision.gameObject.GetComponent<Target>().Controller;

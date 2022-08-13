@@ -5,6 +5,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     private static SoundManager instance;
+
     public static SoundManager Instance
     {
         get
@@ -26,19 +27,15 @@ public class SoundManager : MonoBehaviour
 
     private float volumeBGM = 1f;
 
-    [SerializeField]
-    private AudioClip mainBgmAudioClip; // 메인화면 BGM
-    [SerializeField]
-    private AudioClip[] sfxAudioClips; // 효과음들 지정하는 배열
+    [SerializeField] private AudioClip mainBgmAudioClip; // 메인화면 BGM
+    [SerializeField] private AudioClip[] sfxAudioClips; // 효과음들 지정하는 배열
 
-    Dictionary<string, AudioClip> sfxAudioClipsDic = new Dictionary<string, AudioClip>(); // 효과음들을 string으로 관리할 수 있게 만든 딕셔너리
+    private readonly Dictionary<string, AudioClip> sfxAudioClipsDic = new Dictionary<string, AudioClip>(); // 효과음들을 string으로 관리할 수 있게 만든 딕셔너리
 
     private void Awake()
     {
-        if (Instance != this)
-        { // 이미 SoundManager가 있으면 이 SoundManager 삭제
-            Destroy(this.gameObject);
-        }
+        if (Instance != this) Destroy(this.gameObject); // 이미 SoundManager가 있으면 이 SoundManager 삭제
+
         DontDestroyOnLoad(this.gameObject); // 여러 씬에서 사용
 
         // sfxPlayer는 (자동으로) 생성한 자식 오브젝트에 있는 AudioSource 컴포넌트
@@ -74,6 +71,7 @@ public class SoundManager : MonoBehaviour
             Debug.LogError(name + " is not contained. Please add audioclip in sfxAudioClips array (in SoundManager object)");
             return;
         }
+
         sfxPlayer.PlayOneShot(sfxAudioClipsDic[name], volume * masterVolumeSFX);
     }
 

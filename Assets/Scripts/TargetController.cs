@@ -79,6 +79,8 @@ public abstract class TargetController
 
     public void Fission(Vector3 pos)
     {
+        ParticleManager.Instance.PlayParticle("HitEffect", Holder.transform.position);
+
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
 
