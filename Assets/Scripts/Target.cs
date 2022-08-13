@@ -50,6 +50,7 @@ public sealed class Target : MonoBehaviour
         Move();
         GetStuck();
         Disappear();
+        SpeedUp();
         GameOver();
 
         controller.OnUpdate();
@@ -165,7 +166,7 @@ public sealed class Target : MonoBehaviour
 
     private void Move()
     {
-        if (!controller.IsParticle) transform.Translate(1f * Time.deltaTime * Vector3.back);
+        if (!controller.IsParticle) transform.Translate(GameManager.Instance.speed * Time.deltaTime * Vector3.back);
     }
 
     private void GetStuck()
@@ -202,6 +203,13 @@ public sealed class Target : MonoBehaviour
             TargetSpawner.targetPool[controller.Name].Enqueue(controller);
             gameObject.SetActive(false);
         }
+    }
+
+    private void SpeedUp()
+    {
+        if (!GameManager.Instance.debugMode) return;
+
+        GameManager.Instance.speed += Time.deltaTime / 100;
     }
 
     private void GameOver()

@@ -3623,6 +3623,8 @@ MonoBehaviour:
   pauseCanvas: {fileID: 213229398}
   optionButton: {fileID: 828441957}
   optionCanvas: {fileID: 163211095}
+  debugMode: 1
+  speed: 1
 --- !u!1 &2040379934
 GameObject:
   m_ObjectHideFlags: 0
