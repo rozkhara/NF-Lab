@@ -209,7 +209,9 @@ public sealed class Target : MonoBehaviour
     {
         if (!GameManager.Instance.debugMode) return;
 
-        GameManager.Instance.speed += Time.deltaTime / 100;
+        //GameManager.Instance.speed += Time.deltaTime / 100;
+        var value = Mathf.Log10(Time.time);
+        GameManager.Instance.speed = Mathf.Clamp(value, 1.0f, value);
     }
 
     private void GameOver()
