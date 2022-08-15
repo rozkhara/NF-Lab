@@ -14,7 +14,7 @@ public class MainScreenObjectManipulation : MonoBehaviour
     private void Start()
     {
         MainObject = GameObject.Find("MainObject");
-        StartCoroutine(GetNewRotation());
+        GetNewRotation();
     }
 
     private void Update()
@@ -26,15 +26,14 @@ public class MainScreenObjectManipulation : MonoBehaviour
         {
             timeStamp = 0.0f;
             timeLimit = Random.Range(1.0f, 3.0f);
-            StartCoroutine(GetNewRotation());
+            GetNewRotation();
         }
     }
 
-    private IEnumerator GetNewRotation()
+    private void GetNewRotation()
     {
         prevRotation = newRotation;
         newRotation = Random.rotation;
-        yield return null;
     }
 
 }
