@@ -58,7 +58,7 @@ namespace Spawners
             foreach (var targetGenerator in targetGenerators)
             {
                 targetGenerator.Pool = go;
-                targetGenerator.CreateTarget(500);
+                targetGenerator.CreateTarget(50);
                 targetPool.Add(targetGenerator.Name, targetGenerator.targets);
             }
 

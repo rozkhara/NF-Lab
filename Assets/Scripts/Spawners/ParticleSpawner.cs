@@ -18,7 +18,7 @@ namespace Spawners
             {
                 particlePool.Add(particle.name, particleQueue);
 
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 30; i++)
                 {
                     var p = Instantiate(particle, go.transform);
 
