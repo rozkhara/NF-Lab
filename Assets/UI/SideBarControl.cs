@@ -6,15 +6,20 @@ using UnityEngine.EventSystems;
 public class SideBarControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private readonly int deltaX = 600;
+
     private RectTransform rt;
+
     private Vector3 defaultPos;
     private Vector3 extendedPos;
+
     private readonly float animationTime = 0.5f;
 
     private void Awake()
     {
-        rt = this.gameObject.GetComponent<RectTransform>();
+        rt = GetComponent<RectTransform>();
+
         defaultPos = rt.position;
+
         extendedPos = new Vector3(defaultPos.x - deltaX, defaultPos.y, defaultPos.z);
     }
 
@@ -30,11 +35,11 @@ public class SideBarControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     IEnumerator Slide(int mode, float time)
     {
-        float elapsedTime = 0.0f;
+        float elapsedTime = 0f;
         Vector3 startPos = rt.position;
+
         if (mode == 0)
         {
-            
             while (elapsedTime < time)
             {
                 elapsedTime += Time.deltaTime;
@@ -51,8 +56,7 @@ public class SideBarControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 yield return new WaitForEndOfFrame();
             }
         }
+
         yield return null;
     }
-
-
 }
