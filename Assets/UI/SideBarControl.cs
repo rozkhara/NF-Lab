@@ -12,7 +12,7 @@ public class SideBarControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private Vector3 defaultPos;
     private Vector3 extendedPos;
 
-    private readonly float animationTime = 0.5f;
+    protected readonly float animationTime = 0.5f;
 
     private void Awake()
     {
