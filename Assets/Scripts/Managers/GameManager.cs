@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseCanvas;
     [SerializeField] private GameObject optionButton;
     [SerializeField] private GameObject optionCanvas;
+    [SerializeField] private GameObject gameOverCanvas;
 
     public static GameManager Instance { get; private set; }
 
@@ -32,7 +33,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OptionsPanelOnOff();
+            if (!IsGameOver)
+            {
+                OptionsPanelOnOff();
+            }
         }
     }
     public void OptionsPanelOnOff()
@@ -84,6 +88,36 @@ public class GameManager : MonoBehaviour
 
         IsGameOver = true;
 
+        GameOverPanelOnOff();
+
         Debug.Log("게임 오버!");
+    }
+    
+    public void GameOverPanelOnOff()
+    {
+        if (IsGameOver)
+        {
+            crossHair.SetActive(false);
+            gameOverCanvas.SetActive(true);
+
+            IsGamePaused = true;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            crossHair.SetActive(true);
+            gameOverCanvas.SetActive(false);
+
+            IsGamePaused = false;
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            Time.timeScale = 1f;
+        }
     }
 }

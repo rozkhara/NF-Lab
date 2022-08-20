@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
         Instance = this;
 
         scoreText.text = "Score: " + Score.ToString();
-        streakText.text = Streak.ToString();
+        streakText.text = Streak.ToString() + "X";
     }
 
     private void OnDestroy()
@@ -48,12 +48,12 @@ public class UIManager : MonoBehaviour
     public void IncreaseStreak()
     {
         Streak++;
-        streakText.text = Streak.ToString();
+        streakText.text = Streak.ToString() + "X";
     }
 
     public void ResetStreak()
     {
         Streak = 0;
-        streakText.text = Streak.ToString();
+        streakText.text = Streak.ToString() + "X";
     }
 }
