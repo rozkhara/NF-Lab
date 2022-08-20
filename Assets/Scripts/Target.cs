@@ -7,14 +7,11 @@ public sealed class Target : MonoBehaviour
 {
     private static readonly HashSet<Target> allTarget = new HashSet<Target>();
 
-    /// <summary>
-    /// 타겟이 버틸 수 있는 피격 수
-    /// </summary>
-    public int Life { get; set; }
-
     private Vector3 force;
 
     private Vector3 initialVelocity;
+
+    private float speed = 1f;
 
     private bool isColliding;
 
@@ -108,20 +105,15 @@ public sealed class Target : MonoBehaviour
         // 분열된 타겟과 고정된 타겟이 충돌할 때
         if (!controller.IsParticle && collision.gameObject.CompareTag("Target"))
         {
-            // 앞으로 튀어나가지 않게 분열
-            if (controller.CheckParticleRoute((transform.position - collision.transform.position).normalized)) GetHit(collision.transform.position);
-            else
-            {
-                ScoreManager.Instance.IncreaseScore(controller.Score);
+            ScoreManager.Instance.IncreaseScore(controller.Score);
 
-                int x = Random.Range(1, 4);
-                SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
+            int x = Random.Range(1, 4);
+            SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
 
-                ParticleManager.Instance.PlayParticle("HitEffect", transform.position);
+            ParticleManager.Instance.PlayParticle("HitEffect", transform.position);
 
-                TargetSpawner.targetPool[controller.Name].Enqueue(controller);
-                gameObject.SetActive(false);
-            }
+            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+            gameObject.SetActive(false);
 
             var con = collision.gameObject.GetComponent<Target>().Controller;
 
@@ -166,7 +158,7 @@ public sealed class Target : MonoBehaviour
 
     private void Move()
     {
-        if (!controller.IsParticle) transform.Translate(GameManager.Instance.speed * Time.deltaTime * Vector3.back);
+        if (!controller.IsParticle) transform.Translate(speed * Time.deltaTime * Vector3.back);
     }
 
     private void GetStuck()
@@ -198,7 +190,7 @@ public sealed class Target : MonoBehaviour
     {
         var pos = transform.position;
 
-        if (pos.x <= -3f || pos.x >= 3f || pos.y <= 0.1f || pos.y >= 7f)
+        if (rb.velocity.z < 0 || pos.x <= -3f || pos.x >= 3f || pos.y <= 0.1f || pos.y >= 7f)
         {
             TargetSpawner.targetPool[controller.Name].Enqueue(controller);
             gameObject.SetActive(false);
@@ -207,13 +199,11 @@ public sealed class Target : MonoBehaviour
 
     private void SpeedUp()
     {
-        if (!GameManager.Instance.debugMode) return;
-
         // GameManager.Instance.speed += Time.deltaTime / 100;
 
         var value = Mathf.Log10(Time.time);
 
-        GameManager.Instance.speed = Mathf.Clamp(value, 1.0f, value);
+        speed = Mathf.Clamp(value, 1.0f, value);
     }
 
     private void GameOver()
@@ -229,10 +219,8 @@ public sealed class Target : MonoBehaviour
     public void GetHit(Vector3 pos)
     {
         if (controller.IsParticle) return;
-
-        Life--;
-
-        if (Life == 0) controller.Fission(pos);
+        
+        controller.Fission(pos);
     }
 
     public IEnumerator GetForce(Vector3 direction)

@@ -23,10 +23,6 @@ public class GameManager : MonoBehaviour
 
     public bool IsOptionCanvasOn { get; set; }
 
-    public bool debugMode;
-
-    public float speed = 1f;
-
     private void Awake()
     {
         Instance = this;

@@ -41,8 +41,6 @@ public abstract class TargetController
     {
         Holder = target;
 
-        Holder.Life = 1;
-
         OnAttached();
 
         Holder.StartCoroutine(Load());
@@ -203,21 +201,5 @@ public abstract class TargetController
 
         if (key == -1) return true;
         else return false;
-    }
-
-    public bool CheckParticleRoute(Vector3 axis)
-    {
-        if (axis.z <= 0) return false;
-
-        var normal = Vector3.ProjectOnPlane(Vector3.up, axis).normalized;
-
-        for (int i = 0; i < 8; i++)
-        {
-            var direction = Quaternion.AngleAxis(45f * i, axis) * (axis * 1.1f + normal * 1.35f);
-
-            if (direction.z <= 0) return false;
-        }
-
-        return true;
     }
 }

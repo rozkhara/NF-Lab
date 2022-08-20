@@ -86,7 +86,7 @@ public sealed class Gun : MonoBehaviour
             dir.z += dir.magnitude * 1.3f;
             dir = dir.normalized;
 
-            if (hitInfo.transform.tag == "Target" && hitInfo.transform.GetComponentInParent<Target>().Controller.CheckParticleRoute(dir))
+            if (hitInfo.transform.tag == "Target")
             {
                 hitInfo.transform.GetComponentInParent<Target>().GetHit(pos - dir);
             }
