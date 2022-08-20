@@ -6,13 +6,10 @@ using UnityEngine.EventSystems;
 public class OptionButton : SideBarControl, IPointerClickHandler
 {
     [SerializeField]
-    private GameObject Fog;
-    [SerializeField]
-    private GameObject Panel;
+    private GameObject OptionsObject;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Fog.SetActive(true);
-        Panel.SetActive(true);
+        OptionsObject.SetActive(true);
     }
 }
