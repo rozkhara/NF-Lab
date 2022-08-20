@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 public class OptionsClose : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
-    private GameObject Fog;
-    [SerializeField]
-    private GameObject Panel;
+    private GameObject OptionsObject;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Fog.SetActive(false);
-        Panel.SetActive(false);
+        OptionsObject.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+            GameManager.Instance.OptionsPanelOnOff();
+        }
     }
 }

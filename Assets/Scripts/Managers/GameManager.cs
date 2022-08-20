@@ -32,40 +32,44 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (IsGamePaused)
+            OptionsPanelOnOff();
+        }
+    }
+    public void OptionsPanelOnOff()
+    {
+        if (IsGamePaused)
+        {
+            if (IsOptionCanvasOn)
             {
-                if (IsOptionCanvasOn)
-                {
-                    optionCanvas.SetActive(false);
-                    optionButton.SetActive(true);
+                optionCanvas.SetActive(false);
+                optionButton.SetActive(true);
 
-                    IsOptionCanvasOn = false;
-                }
-                else
-                {
-                    crossHair.SetActive(true);
-                    pauseCanvas.SetActive(false);
-
-                    IsGamePaused = false;
-
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-
-                    Time.timeScale = 1f;
-                }
+                IsOptionCanvasOn = false;
             }
             else
             {
-                crossHair.SetActive(false);
-                pauseCanvas.SetActive(true);
+                crossHair.SetActive(true);
+                pauseCanvas.SetActive(false);
 
-                IsGamePaused = true;
+                IsGamePaused = false;
 
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
 
-                Time.timeScale = 0f;
+                Time.timeScale = 1f;
             }
+        }
+        else
+        {
+            crossHair.SetActive(false);
+            pauseCanvas.SetActive(true);
+
+            IsGamePaused = true;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            Time.timeScale = 0f;
         }
     }
 
