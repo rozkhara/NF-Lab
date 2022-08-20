@@ -88,7 +88,7 @@ public sealed class Target : MonoBehaviour
                 yield return StartCoroutine(back.GetComponent<Target>().GetForce((collision.transform.position - transform.position).normalized));
             }
 
-            ScoreManager.Instance.IncreaseScore(controller.Score);
+            UIManager.Instance.IncreaseScore(controller.Score);
 
             int x = Random.Range(1, 4);
             SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
@@ -105,7 +105,7 @@ public sealed class Target : MonoBehaviour
         // 분열된 타겟과 고정된 타겟이 충돌할 때
         if (!controller.IsParticle && collision.gameObject.CompareTag("Target"))
         {
-            ScoreManager.Instance.IncreaseScore(controller.Score);
+            UIManager.Instance.IncreaseScore(controller.Score);
 
             int x = Random.Range(1, 4);
             SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
@@ -120,7 +120,7 @@ public sealed class Target : MonoBehaviour
             TargetSpawner.targetPool[con.Name].Enqueue(con);
             collision.gameObject.SetActive(false);
 
-            ScoreManager.Instance.IncreaseScore(con.Score);
+            UIManager.Instance.IncreaseScore(con.Score);
         }
 
         // 위아래 벽에 충돌할 때

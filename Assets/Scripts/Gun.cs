@@ -89,7 +89,10 @@ public sealed class Gun : MonoBehaviour
             if (hitInfo.transform.tag == "Target")
             {
                 hitInfo.transform.GetComponentInParent<Target>().GetHit(pos - dir);
+
+                UIManager.Instance.IncreaseStreak();
             }
+            else UIManager.Instance.ResetStreak();
         }
     }
 

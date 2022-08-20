@@ -82,7 +82,7 @@ public abstract class TargetController
         Holder.gameObject.SetActive(false);
         TargetSpawner.targetPool[Name].Enqueue(this);
 
-        ScoreManager.Instance.IncreaseScore(Score);
+        UIManager.Instance.IncreaseScore(Score);
 
         int x = Random.Range(1, 4);
         SoundManager.Instance.PlaySFXSound("targetHit" + x, 0.2f);
