@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Managers;
+using UnityEngine.SceneManagement;
 
 public class CrossHair : MonoBehaviour
 {
@@ -12,10 +13,13 @@ public class CrossHair : MonoBehaviour
 
     private void Start()
     {
-        crossHair.sprite = UIManager.Instance.crossHairSprite;
-        crossHair.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, UIManager.Instance.CrossHairScale);
-        crossHair.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, UIManager.Instance.CrossHairScale);
-        crossHair.color = colorButtons[UIManager.Instance.CrossHairIdx].GetComponent<Image>().color;
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+            crossHair.sprite = UIManager.Instance.crossHairSprite;
+            crossHair.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, UIManager.Instance.CrossHairScale);
+            crossHair.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, UIManager.Instance.CrossHairScale);
+            crossHair.color = colorButtons[UIManager.Instance.CrossHairIdx].GetComponent<Image>().color;
+        }
 
         for (int i = 0; i < crossHairButtons.Length; i++)
         {

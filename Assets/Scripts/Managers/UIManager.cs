@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Managers
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private TextMeshProUGUI streakText;
+        private TextMeshProUGUI scoreText;
+        private TextMeshProUGUI streakText;
 
         public float Score { get; private set; } = 0f;
 
@@ -44,8 +45,28 @@ namespace Managers
 
             DontDestroyOnLoad(this.gameObject); // 여러 씬에서 사용
 
-            scoreText.text = "Score: \n" + Score.ToString();
-            streakText.text = "Streak: \n" + Streak.ToString() + "X";
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "GameScene")
+            {
+                scoreText = GameObject.Find("ScoreCanvas").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                streakText = GameObject.Find("ScoreCanvas").transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+                scoreText.text = "Score: \n" + Score.ToString();
+                streakText.text = "Streak: \n" + Streak.ToString() + "X";
+            }
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         /// <summary>
