@@ -19,6 +19,10 @@ public sealed class Target : MonoBehaviour
 
     private TargetController controller;
 
+    private float timeStamp = 0f;
+
+    private Quaternion rotation;
+
     /// <summary>
     /// 이거를 갈아치워주면 다른 타겟처럼 행동하기 시작함
     /// </summary>
@@ -38,6 +42,8 @@ public sealed class Target : MonoBehaviour
         allTarget.Add(this);
 
         rb = GetComponent<Rigidbody>();
+
+        rotation = Random.rotation;
     }
 
     private void Update()
@@ -49,6 +55,7 @@ public sealed class Target : MonoBehaviour
         Disappear();
         SpeedUp();
         GameOver();
+        Rotate();
 
         controller.OnUpdate();
     }
@@ -239,5 +246,11 @@ public sealed class Target : MonoBehaviour
         yield return new WaitForFixedUpdate();
 
         initialVelocity = rb.velocity;
+    }
+
+    private void Rotate()
+    {
+        timeStamp += Time.deltaTime*0.5f;
+        gameObject.transform.GetChild(0).rotation = Quaternion.SlerpUnclamped(Quaternion.identity, rotation, timeStamp);
     }
 }
