@@ -8,7 +8,7 @@ namespace Generators
 {
     public class NeGenerator : TargetGenerator
     {
-        public override string Name => "TargetNe";
+        public override Elements Type => Elements.Ne;
 
         public override void CreateTarget(int count)
         {

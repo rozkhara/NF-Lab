@@ -105,7 +105,7 @@ public sealed class Target : MonoBehaviour
             // 앞에 있는 타겟은 사라짐
             var con = go.GetComponent<Target>().Controller;
 
-            TargetSpawner.targetPool[con.Name].Enqueue(con);
+            TargetSpawner.targetPool[con.Type].Enqueue(con);
             go.SetActive(false);
         }
 
@@ -119,14 +119,14 @@ public sealed class Target : MonoBehaviour
 
             ParticleManager.Instance.PlayParticle("HitEffect", transform.position);
 
-            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+            TargetSpawner.targetPool[controller.Type].Enqueue(controller);
             gameObject.SetActive(false);
 
             GetHit(collision.transform.position);
 
             var con = collision.gameObject.GetComponent<Target>().Controller;
 
-            TargetSpawner.targetPool[con.Name].Enqueue(con);
+            TargetSpawner.targetPool[con.Type].Enqueue(con);
             collision.gameObject.SetActive(false);
 
             UIManager.Instance.IncreaseScore(con.Score);
@@ -207,7 +207,7 @@ public sealed class Target : MonoBehaviour
 
         if (rb.velocity.z < 0 || pos.x <= -3f || pos.x >= 3f || pos.y <= 0.1f || pos.y >= 7f)
         {
-            TargetSpawner.targetPool[controller.Name].Enqueue(controller);
+            TargetSpawner.targetPool[controller.Type].Enqueue(controller);
             gameObject.SetActive(false);
         }
     }

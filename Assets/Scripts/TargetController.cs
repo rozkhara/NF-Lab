@@ -3,6 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spawners;
 
+public enum Elements
+{
+    H,
+    He,
+    Li,
+    Be,
+    B,
+    C,
+    N,
+    O,
+    F,
+    Ne,
+    Na,
+    Mg,
+    Al,
+    Si,
+    P,
+    S,
+    Cl,
+    Ar,
+    K,
+    Ca,
+    Sc,
+    Ti,
+    V,
+    Cr,
+    Mn,
+    Fe,
+    Co,
+    Ni,
+    Cu,
+    Zn,
+    Ga,
+    Ge,
+    As,
+    Se,
+    Br,
+    Kr,
+    Rb,
+    Sr,
+    Y,
+    Zr,
+    Nb,
+    Mo,
+    Tc,
+    Ru,
+    Rh,
+    Pd,
+    Ag,
+    Cd,
+    In,
+    Sn,
+    Sb,
+    Te,
+    I,
+    Xe
+}
+
 public abstract class TargetController
 {
     public Target Holder { get; private set; }
@@ -10,7 +68,7 @@ public abstract class TargetController
     /// <summary>
     /// 타겟의 이름 (프리팹 이름과 동일해야 함)
     /// </summary>
-    public abstract string Name { get; }
+    public abstract Elements Type { get; }
 
     /// <summary>
     /// 타겟의 질량
@@ -85,7 +143,7 @@ public abstract class TargetController
         ParticleManager.Instance.PlayParticle("HitEffect", Holder.transform.position);
 
         Holder.gameObject.SetActive(false);
-        TargetSpawner.targetPool[Name].Enqueue(this);
+        TargetSpawner.targetPool[Type].Enqueue(this);
 
         UIManager.Instance.IncreaseScore(Score);
 
@@ -114,7 +172,7 @@ public abstract class TargetController
                 continue;
             }
 
-            var target = TargetSpawner.targetPool[targets[idx].Name].Dequeue();
+            var target = TargetSpawner.targetPool[targets[idx].Type].Dequeue();
             target.IsParticle = true;
 
             particles.Add(target);

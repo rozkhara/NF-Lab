@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class PController : TargetController
     {
-        public override string Name => "TargetP";
+        public override Elements Type => Elements.P;
 
         public override int Mass => 30;
 

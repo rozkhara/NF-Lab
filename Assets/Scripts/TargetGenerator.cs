@@ -9,7 +9,7 @@ public abstract class TargetGenerator
 
     public GameObject Pool { get; set; }
 
-    public abstract string Name { get; }
+    public abstract Elements Type { get; }
 
     protected float dragValue = 0.2f;
 

@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class ClController : TargetController
     {
-        public override string Name => "TargetCl";
+        public override Elements Type => Elements.Cl;
 
         public override int Mass => 34;
 

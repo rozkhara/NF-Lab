@@ -8,7 +8,7 @@ namespace Generators
 {
     public class SiGenerator : TargetGenerator
     {
-        public override string Name => "TargetSi";
+        public override Elements Type => Elements.Si;
 
         public override void CreateTarget(int count)
         {

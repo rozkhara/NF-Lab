@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class LiController : TargetController
     {
-        public override string Name => "TargetLi";
+        public override Elements Type => Elements.Li;
 
         public override int Mass => 6;
 

@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class NeController : TargetController
     {
-        public override string Name => "TargetNe";
+        public override Elements Type => Elements.Ne;
 
         public override int Mass => 20;
 

@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class MgController : TargetController
     {
-        public override string Name => "TargetMg";
+        public override Elements Type => Elements.Mg;
 
         public override int Mass => 24;
 

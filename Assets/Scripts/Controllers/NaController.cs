@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class NaController : TargetController
     {
-        public override string Name => "TargetNa";
+        public override Elements Type => Elements.Na;
 
         public override int Mass => 22;
 

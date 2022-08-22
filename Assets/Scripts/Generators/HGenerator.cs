@@ -8,7 +8,7 @@ namespace Generators
 {
     public class HGenerator : TargetGenerator
     {
-        public override string Name => "TargetH";
+        public override Elements Type => Elements.H;
 
         public override void CreateTarget(int count)
         {

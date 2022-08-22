@@ -8,7 +8,7 @@ namespace Generators
 {
     public class AlGenerator : TargetGenerator
     {
-        public override string Name => "TargetAl";
+        public override Elements Type => Elements.Al;
 
         public override void CreateTarget(int count)
         {

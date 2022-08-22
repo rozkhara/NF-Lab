@@ -6,9 +6,9 @@ using Tool;
 
 namespace Generators
 {
-    public class NaGenerator : TargetGenerator
+    public class MgGenerator : TargetGenerator
     {
-        public override string Name => "TargetNa";
+        public override Elements Type => Elements.Mg;
 
         public override void CreateTarget(int count)
         {
@@ -30,7 +30,7 @@ namespace Generators
                 rb.drag = dragValue;
 
                 var target = go.AddComponent<Target>();
-                target.Controller = new NaController();
+                target.Controller = new MgController();
 
                 targets.Enqueue(target.Controller);
             }

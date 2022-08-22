@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class FController : TargetController
     {
-        public override string Name => "TargetF";
+        public override Elements Type => Elements.F;
 
         public override int Mass => 18;
 

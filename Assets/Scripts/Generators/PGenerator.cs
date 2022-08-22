@@ -8,7 +8,7 @@ namespace Generators
 {
     public class PGenerator : TargetGenerator
     {
-        public override string Name => "TargetP";
+        public override Elements Type => Elements.P;
 
         public override void CreateTarget(int count)
         {

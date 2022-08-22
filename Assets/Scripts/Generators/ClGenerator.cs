@@ -8,7 +8,7 @@ namespace Generators
 {
     public class ClGenerator : TargetGenerator
     {
-        public override string Name => "TargetCl";
+        public override Elements Type => Elements.Cl;
 
         public override void CreateTarget(int count)
         {

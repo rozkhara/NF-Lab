@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class SiController : TargetController
     {
-        public override string Name => "TargetSi";
+        public override Elements Type => Elements.Si;
 
         public override int Mass => 28;
 

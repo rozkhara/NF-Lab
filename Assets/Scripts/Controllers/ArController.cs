@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class ArController : TargetController
     {
-        public override string Name => "TargetAr";
+        public override Elements Type => Elements.Ar;
 
         public override int Mass => 36;
 

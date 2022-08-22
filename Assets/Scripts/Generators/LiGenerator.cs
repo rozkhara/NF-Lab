@@ -8,7 +8,7 @@ namespace Generators
 {
     public class LiGenerator : TargetGenerator
     {
-        public override string Name => "TargetLi";
+        public override Elements Type => Elements.Li;
 
         public override void CreateTarget(int count)
         {

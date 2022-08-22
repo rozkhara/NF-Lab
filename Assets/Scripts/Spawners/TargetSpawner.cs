@@ -8,9 +8,9 @@ namespace Spawners
 {
     public class TargetSpawner : MonoBehaviour
     {
-        public static readonly Dictionary<string, Queue<TargetController>> targetPool = new Dictionary<string, Queue<TargetController>>();
+        public static readonly Dictionary<Elements, Queue<TargetController>> targetPool = new Dictionary<Elements, Queue<TargetController>>();
 
-        private readonly Dictionary<int, string> targets = new Dictionary<int, string>();
+        private readonly Dictionary<int, Elements> targets = new Dictionary<int, Elements>();
 
         public static readonly HashSet<TargetController> targetTypes = new HashSet<TargetController>();
 
@@ -63,24 +63,60 @@ namespace Spawners
             targetGenerators.Add(new ArGenerator());
 
             // 새로운 타겟이 생길 때마다 추가해 줘야 함
-            targets.Add(0, "TargetH");
-            targets.Add(1, "TargetHe");
-            targets.Add(2, "TargetLi");
-            targets.Add(3, "TargetBe");
-            targets.Add(4, "TargetB");
-            targets.Add(5, "TargetC");
-            targets.Add(6, "TargetN");
-            targets.Add(7, "TargetO");
-            targets.Add(8, "TargetF");
-            targets.Add(9, "TargetNe");
-            targets.Add(10, "TargetNa");
-            targets.Add(11, "TargetMg");
-            targets.Add(12, "TargetAl");
-            targets.Add(13, "TargetSi");
-            targets.Add(14, "TargetP");
-            targets.Add(15, "TargetS");
-            targets.Add(16, "TargetCl");
-            targets.Add(17, "TargetAr");
+            targets.Add(0, Elements.H);
+            targets.Add(1, Elements.He);
+            targets.Add(2, Elements.Li);
+            targets.Add(3, Elements.Be);
+            targets.Add(4, Elements.B);
+            targets.Add(5, Elements.C);
+            targets.Add(6, Elements.N);
+            targets.Add(7, Elements.O);
+            targets.Add(8, Elements.F);
+            targets.Add(9, Elements.Ne);
+            targets.Add(10, Elements.Na);
+            targets.Add(11, Elements.Mg);
+            targets.Add(12, Elements.Al);
+            targets.Add(13, Elements.Si);
+            targets.Add(14, Elements.P);
+            targets.Add(15, Elements.S);
+            targets.Add(16, Elements.Cl);
+            targets.Add(17, Elements.Ar);
+            targets.Add(18, Elements.K);
+            targets.Add(19, Elements.Ca);
+            targets.Add(20, Elements.Sc);
+            targets.Add(21, Elements.Ti);
+            targets.Add(22, Elements.V);
+            targets.Add(23, Elements.Cr);
+            targets.Add(24, Elements.Mn);
+            targets.Add(25, Elements.Fe);
+            targets.Add(26, Elements.Co);
+            targets.Add(27, Elements.Ni);
+            targets.Add(28, Elements.Cu);
+            targets.Add(29, Elements.Zn);
+            targets.Add(30, Elements.Ga);
+            targets.Add(31, Elements.Ge);
+            targets.Add(32, Elements.As);
+            targets.Add(33, Elements.Se);
+            targets.Add(34, Elements.Br);
+            targets.Add(35, Elements.Kr);
+            targets.Add(36, Elements.Rb);
+            targets.Add(37, Elements.Sr);
+            targets.Add(38, Elements.Y);
+            targets.Add(39, Elements.Zr);
+            targets.Add(40, Elements.Nb);
+            targets.Add(41, Elements.Mo);
+            targets.Add(42, Elements.Tc);
+            targets.Add(43, Elements.Ru);
+            targets.Add(44, Elements.Rh);
+            targets.Add(45, Elements.Pd);
+            targets.Add(46, Elements.Ag);
+            targets.Add(47, Elements.Cd);
+            targets.Add(48, Elements.In);
+            targets.Add(49, Elements.Sn);
+            targets.Add(50, Elements.Sn);
+            targets.Add(51, Elements.Te);
+            targets.Add(52, Elements.I);
+            targets.Add(53, Elements.Xe);
 
             var go = new GameObject();
 
@@ -89,7 +125,7 @@ namespace Spawners
             {
                 targetGenerator.Pool = go;
                 targetGenerator.CreateTarget(50);
-                targetPool.Add(targetGenerator.Name, targetGenerator.targets);
+                targetPool.Add(targetGenerator.Type, targetGenerator.targets);
             }
 
             // 타겟 생성 위치 설정
@@ -127,9 +163,9 @@ namespace Spawners
 
             for (int i = 0; i < ran; i++)
             {
-                string ranName = targets[Random.Range(0, targets.Count)];
+                Elements ranType = targets[Random.Range(0, targets.Count)];
 
-                var target = targetPool[ranName].Dequeue();
+                var target = targetPool[ranType].Dequeue();
 
                 int idx = Random.Range(0, spawnPointIdxList.Count);
 

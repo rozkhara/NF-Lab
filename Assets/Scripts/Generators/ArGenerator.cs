@@ -8,7 +8,7 @@ namespace Generators
 {
     public class ArGenerator : TargetGenerator
     {
-        public override string Name => "TargetAr";
+        public override Elements Type => Elements.Ar;
 
         public override void CreateTarget(int count)
         {

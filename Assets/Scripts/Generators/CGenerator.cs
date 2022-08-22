@@ -8,7 +8,7 @@ namespace Generators
 {
     public class CGenerator : TargetGenerator
     {
-        public override string Name => "TargetC";
+        public override Elements Type => Elements.C;
 
         public override void CreateTarget(int count)
         {
