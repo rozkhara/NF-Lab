@@ -93,8 +93,6 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
 
         GameOverPanelOn();
-
-        Debug.Log("게임 오버!");
     }
 
     public void GameOverPanelOn()

@@ -8,6 +8,9 @@ public class RestartGame : MonoBehaviour
 {
     public void Restart()
     {
+        Target.UnloadResources();
+        Target.UnloadPool();
+
         GameManager.Instance.GetComponent<TargetSpawner>().enabled = true;
 
         Time.timeScale = 1f;
@@ -17,6 +20,9 @@ public class RestartGame : MonoBehaviour
 
     public void ToMain()
     {
+        Target.UnloadResources();
+        Target.UnloadPool();
+
         GameManager.Instance.GetComponent<TargetSpawner>().enabled = false;
 
         Time.timeScale = 1f;

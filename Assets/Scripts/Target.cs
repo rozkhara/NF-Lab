@@ -160,12 +160,12 @@ public sealed class Target : MonoBehaviour
         isColliding = false;
     }
 
-    private static void UnloadResources()
+    public static void UnloadResources()
     {
         allTarget.Clear();
     }
 
-    private static void UnloadPool()
+    public static void UnloadPool()
     {
         TargetSpawner.targetPool.Clear();
         ParticleSpawner.particlePool.Clear();
