@@ -235,7 +235,7 @@ public sealed class Target : MonoBehaviour
     public void GetHit(Vector3 pos)
     {
         if (controller.IsParticle) return;
-        
+
         controller.Fission(pos);
     }
 
@@ -252,7 +252,7 @@ public sealed class Target : MonoBehaviour
 
     private void Rotate()
     {
-        timeStamp += Time.deltaTime*0.5f;
+        timeStamp += Time.deltaTime * 0.5f;
         gameObject.transform.GetChild(0).rotation = Quaternion.SlerpUnclamped(Quaternion.identity, rotation, timeStamp);
     }
 }

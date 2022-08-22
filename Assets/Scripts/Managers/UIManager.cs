@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
 
     public int Streak { get; private set; } = 0;
 
+    private float multiplier = 1f;
+
     public static UIManager Instance { get; private set; }
 
     private void Awake()
@@ -32,14 +34,15 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void IncreaseScore(float score)
     {
+        score *= multiplier;
         Score += score;
-        scoreText.text = "Score: \n" + Score.ToString();
+        scoreText.text = "Score: \n" + ((int)Score).ToString();
     }
 
     public void ResetScore()
     {
         Score = 0f;
-        scoreText.text = "Score: \n" + Score.ToString();
+        scoreText.text = "Score: \n" + ((int)Score).ToString();
     }
 
     /// <summary>
@@ -48,12 +51,42 @@ public class UIManager : MonoBehaviour
     public void IncreaseStreak()
     {
         Streak++;
+        SetMultiplier();
         streakText.text = "Streak: \n" + Streak.ToString() + "X";
     }
 
     public void ResetStreak()
     {
         Streak = 0;
+        SetMultiplier();
         streakText.text = "Streak: \n" + Streak.ToString() + "X";
+    }
+
+    private void SetMultiplier()
+    {
+        if (Streak < 10)
+        {
+            multiplier = 1f;
+        }
+        else if (Streak < 20)
+        {
+            multiplier = 1.15f;
+        }
+        else if (Streak < 30)
+        {
+            multiplier = 1.3f;
+        }
+        else if (Streak < 40)
+        {
+            multiplier = 1.45f;
+        }
+        else if (Streak < 50)
+        {
+            multiplier = 1.6f;
+        }
+        else
+        {
+            multiplier = 1.75f;
+        }
     }
 }

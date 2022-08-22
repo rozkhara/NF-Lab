@@ -41,6 +41,24 @@ namespace Spawners
             targetTypes.Add(new SController());
             targetTypes.Add(new ClController());
             targetTypes.Add(new ArController());
+            targetTypes.Add(new KController());
+            targetTypes.Add(new CaController());
+            targetTypes.Add(new ScController());
+            targetTypes.Add(new TiController());
+            targetTypes.Add(new VController());
+            targetTypes.Add(new CrController());
+            targetTypes.Add(new MnController());
+            targetTypes.Add(new FeController());
+            targetTypes.Add(new CoController());
+            targetTypes.Add(new NiController());
+            targetTypes.Add(new CuController());
+            targetTypes.Add(new ZnController());
+            targetTypes.Add(new GaController());
+            targetTypes.Add(new GeController());
+            targetTypes.Add(new AsController());
+            targetTypes.Add(new SeController());
+            targetTypes.Add(new BrController());
+            targetTypes.Add(new KrController());
 
             // 새로운 타겟 생성기가 생길 때마다 추가해 줘야 함
             targetGenerators.Add(new HGenerator());
@@ -61,9 +79,27 @@ namespace Spawners
             targetGenerators.Add(new SGenerator());
             targetGenerators.Add(new ClGenerator());
             targetGenerators.Add(new ArGenerator());
+            targetGenerators.Add(new KGenerator());
+            targetGenerators.Add(new CaGenerator());
+            targetGenerators.Add(new ScGenerator());
+            targetGenerators.Add(new TiGenerator());
+            targetGenerators.Add(new VGenerator());
+            targetGenerators.Add(new CrGenerator());
+            targetGenerators.Add(new MnGenerator());
+            targetGenerators.Add(new FeGenerator());
+            targetGenerators.Add(new CoGenerator());
+            targetGenerators.Add(new NiGenerator());
+            targetGenerators.Add(new CuGenerator());
+            targetGenerators.Add(new ZnGenerator());
+            targetGenerators.Add(new GaGenerator());
+            targetGenerators.Add(new GeGenerator());
+            targetGenerators.Add(new AsGenerator());
+            targetGenerators.Add(new SeGenerator());
+            targetGenerators.Add(new BrGenerator());
+            targetGenerators.Add(new KrGenerator());
 
             // 새로운 타겟이 생길 때마다 추가해 줘야 함
-            for (int i = 0; i < 18; i++)
+            for (int i = 0; i < 36; i++)
             {
                 targets.Add(i, (Elements)i);
             }
@@ -153,7 +189,7 @@ namespace Spawners
                 return;
             }
 
-            Random.InitState(Random.Range(0, 1000));
+            Random.InitState((int)Time.time);
 
             // 스폰 개수 설정
             int ran = Random.Range(1, 5);
