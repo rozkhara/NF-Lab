@@ -58,7 +58,9 @@ public enum Elements
     Sb,
     Te,
     I,
-    Xe
+    Xe,
+    
+    Count
 }
 
 public abstract class TargetController
