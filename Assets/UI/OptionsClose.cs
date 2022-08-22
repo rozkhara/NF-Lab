@@ -6,8 +6,9 @@ using UnityEngine.EventSystems;
 
 public class OptionsClose : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField]
-    private GameObject OptionsObject;
+    [SerializeField] private GameObject OptionsObject;
+    [SerializeField] private GameObject homeObject;
+    [SerializeField] private GameObject restartObject;
 
     public void OnPointerClick(PointerEventData eventData)
     {

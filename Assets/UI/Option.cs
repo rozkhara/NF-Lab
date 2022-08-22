@@ -5,6 +5,8 @@ using UnityEngine;
 public class Option : MonoBehaviour
 {
     [SerializeField] private GameObject optionCanvas;
+    [SerializeField] private GameObject homeObject;
+    [SerializeField] private GameObject restartObject;
 
     public void EnterOption()
     {
@@ -13,5 +15,7 @@ public class Option : MonoBehaviour
         optionCanvas.SetActive(true);
 
         gameObject.SetActive(false);
+        homeObject.SetActive(false);
+        restartObject.SetActive(false);
     }
 }

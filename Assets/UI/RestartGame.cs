@@ -14,4 +14,13 @@ public class RestartGame : MonoBehaviour
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void ToMain()
+    {
+        GameManager.Instance.GetComponent<TargetSpawner>().enabled = false;
+
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("StartScene");
+    }
 }
