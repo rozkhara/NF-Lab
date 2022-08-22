@@ -31,6 +31,16 @@ namespace Spawners
             targetTypes.Add(new NController());
             targetTypes.Add(new CController());
             targetTypes.Add(new OController());
+            targetTypes.Add(new FController());
+            targetTypes.Add(new NeController());
+            targetTypes.Add(new NaController());
+            targetTypes.Add(new MgController());
+            targetTypes.Add(new AlController());
+            targetTypes.Add(new SiController());
+            targetTypes.Add(new PController());
+            targetTypes.Add(new SController());
+            targetTypes.Add(new ClController());
+            targetTypes.Add(new ArController());
 
             // 새로운 타겟 생성기가 생길 때마다 추가해 줘야 함
             targetGenerators.Add(new HGenerator());
@@ -41,6 +51,16 @@ namespace Spawners
             targetGenerators.Add(new CGenerator());
             targetGenerators.Add(new NGenerator());
             targetGenerators.Add(new OGenerator());
+            targetGenerators.Add(new FGenerator());
+            targetGenerators.Add(new NeGenerator());
+            targetGenerators.Add(new NaGenerator());
+            targetGenerators.Add(new MgGenerator());
+            targetGenerators.Add(new AlGenerator());
+            targetGenerators.Add(new SiGenerator());
+            targetGenerators.Add(new PGenerator());
+            targetGenerators.Add(new SGenerator());
+            targetGenerators.Add(new ClGenerator());
+            targetGenerators.Add(new ArGenerator());
 
             // 새로운 타겟이 생길 때마다 추가해 줘야 함
             targets.Add(0, "TargetH");
@@ -51,6 +71,16 @@ namespace Spawners
             targets.Add(5, "TargetC");
             targets.Add(6, "TargetN");
             targets.Add(7, "TargetO");
+            targets.Add(8, "TargetF");
+            targets.Add(9, "TargetNe");
+            targets.Add(10, "TargetNa");
+            targets.Add(11, "TargetMg");
+            targets.Add(12, "TargetAl");
+            targets.Add(13, "TargetSi");
+            targets.Add(14, "TargetP");
+            targets.Add(15, "TargetS");
+            targets.Add(16, "TargetCl");
+            targets.Add(17, "TargetAr");
 
             var go = new GameObject();
 
@@ -82,6 +112,8 @@ namespace Spawners
                 spawnCounter -= Time.deltaTime;
                 return;
             }
+
+            Random.InitState(Random.Range(0, 1000));
 
             // 스폰 개수 설정
             int ran = Random.Range(1, 5);

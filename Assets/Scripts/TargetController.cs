@@ -18,6 +18,11 @@ public abstract class TargetController
     public abstract int Mass { get; }
 
     /// <summary>
+    /// 타겟의 원자 족
+    /// </summary>
+    public abstract int Group { get; }
+
+    /// <summary>
     ///  타겟의 점수
     /// </summary>
     public abstract int Score { get; }

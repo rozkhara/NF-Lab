@@ -15,6 +15,8 @@ namespace Controllers
 
         public override int Score => 5;
 
+        public override int Group => 13;
+
         public override void OnUpdate()
         {
 
@@ -32,10 +34,10 @@ namespace Controllers
 
         protected override IEnumerator LoadResources()
         {
-            yield return AssetLoader.LoadPrefabAsync<GameObject>("Targets/TargetB", x =>
-            {
-                resource = Object.Instantiate(x);
-                resource.GetComponent<MeshRenderer>().material = CreateMaterials.Instance.CreateMat(Mass);
+            yield return AssetLoader.LoadPrefabAsync<GameObject>("Targets/poly_" + Group.ToString(), x =>
+              {
+                  resource = Object.Instantiate(x);
+                  resource.GetComponent<MeshRenderer>().material = CreateMaterials.Instance.CreateMat(Mass);
             });
         }
     }
