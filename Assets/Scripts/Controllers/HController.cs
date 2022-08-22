@@ -32,7 +32,7 @@ namespace Controllers
 
         protected override IEnumerator LoadResources()
         {
-            yield return AssetLoader.LoadPrefabAsync<GameObject>("Targets/TargetH", x =>
+            yield return AssetLoader.LoadPrefabAsync<GameObject>("Targets/poly_03", x =>
             {
                 resource = Object.Instantiate(x);
                 resource.GetComponent<MeshRenderer>().material = CreateMaterials.Instance.CreateMat(Mass);

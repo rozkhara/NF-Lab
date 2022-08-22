@@ -10,7 +10,7 @@ public class MainScreenObjectManipulation : MonoBehaviour
     private GameObject mainObject;
 
     private float timeStamp = 0f;
-    private float timeLimit = 0f;
+    private float timeLimit = 1f;
 
     private void Start()
     {

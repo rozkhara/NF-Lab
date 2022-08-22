@@ -31,8 +31,8 @@ public class CreateMaterials : MonoBehaviour
         Material mat = new Material(shader);
         Random.InitState(mass);
         Color baseColor = new Color(Random.Range(0, 256) / 256f, Random.Range(0, 256) / 256f, Random.Range(0, 256) / 256f);
-        float H, S, V;
-        Color.RGBToHSV(baseColor, out H, out S, out V);
+
+        Color.RGBToHSV(baseColor, out float H, out float S, out float V);
         Color edgeColor = Color.HSVToRGB(H * baseToEdgeParam, S * baseToEdgeParam, V);
         //Color edgeColor = new Color(1 - baseColor.r, 1 - baseColor.g, 1 - baseColor.b);
 
