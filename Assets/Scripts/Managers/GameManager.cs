@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject crossHair;
     [SerializeField] private GameObject pauseCanvas;
     [SerializeField] private GameObject optionButton;
+    [SerializeField] private GameObject homeButton;
+    [SerializeField] private GameObject restartButton;
     [SerializeField] private GameObject optionCanvas;
     [SerializeField] private GameObject gameOverCanvas;
 
@@ -47,6 +49,8 @@ public class GameManager : MonoBehaviour
             {
                 optionCanvas.SetActive(false);
                 optionButton.SetActive(true);
+                homeButton.SetActive(true);
+                restartButton.SetActive(true);
 
                 IsOptionCanvasOn = false;
             }
