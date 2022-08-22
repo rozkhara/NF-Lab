@@ -156,6 +156,12 @@ public sealed class Target : MonoBehaviour
         allTarget.Clear();
     }
 
+    private static void UnloadPool()
+    {
+        TargetSpawner.targetPool.Clear();
+        ParticleSpawner.particlePool.Clear();
+    }
+
     private void Move()
     {
         if (!controller.IsParticle) transform.Translate(speed * Time.deltaTime * Vector3.back);
@@ -211,6 +217,7 @@ public sealed class Target : MonoBehaviour
         if (!GameManager.Instance.IsGameOver && transform.position.z <= 2f)
         {
             UnloadResources();
+            UnloadPool();
 
             GameManager.Instance.GameOver();
         }

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class CreateMaterials : MonoBehaviour
 {
-    private GameObject go;
     public static CreateMaterials Instance { get; private set; }
 
     private readonly float baseToEdgeParam = 0.5f;
-
 
     private void Awake()
     {
@@ -20,18 +18,16 @@ public class CreateMaterials : MonoBehaviour
         Instance = null;
     }
 
-    private void Start()
-    {
-        go = GameObject.Find("MaterialHolder");
-    }
-
     public Material CreateMat(int mass)
     {
-        Shader shader = go.GetComponent<MeshRenderer>().material.shader;
+        Shader shader = gameObject.GetComponent<MeshRenderer>().material.shader;
         Material mat = new Material(shader);
+
         Random.InitState(mass);
         Color baseColor = new Color(Random.Range(0, 256) / 256f, Random.Range(0, 256) / 256f, Random.Range(0, 256) / 256f);
+
         float H, S, V;
+
         Color.RGBToHSV(baseColor, out H, out S, out V);
         Color edgeColor = Color.HSVToRGB(H * baseToEdgeParam, S * baseToEdgeParam, V);
         //Color edgeColor = new Color(1 - baseColor.r, 1 - baseColor.g, 1 - baseColor.b);
@@ -40,5 +36,4 @@ public class CreateMaterials : MonoBehaviour
         mat.SetColor("_EdgeColor", edgeColor);
         return mat;
     }
-
 }

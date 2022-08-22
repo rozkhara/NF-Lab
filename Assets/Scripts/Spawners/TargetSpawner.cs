@@ -74,6 +74,7 @@ namespace Spawners
             // 정가운데에는 스폰 안되게
             spawnPoints.RemoveAt(12);
         }
+
         private void Update()
         {
             if (spawnCounter > 0f)

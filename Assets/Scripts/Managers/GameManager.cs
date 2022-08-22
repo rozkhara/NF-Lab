@@ -84,40 +84,25 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Player.GetComponent<TargetSpawner>().enabled = false;
+        GetComponent<TargetSpawner>().enabled = false;
 
         IsGameOver = true;
 
-        GameOverPanelOnOff();
+        GameOverPanelOn();
 
         Debug.Log("게임 오버!");
     }
-    
-    public void GameOverPanelOnOff()
+
+    public void GameOverPanelOn()
     {
-        if (IsGameOver)
-        {
-            crossHair.SetActive(false);
-            gameOverCanvas.SetActive(true);
+        crossHair.SetActive(false);
+        gameOverCanvas.SetActive(true);
 
-            IsGamePaused = true;
+        IsGamePaused = true;
 
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            crossHair.SetActive(true);
-            gameOverCanvas.SetActive(false);
-
-            IsGamePaused = false;
-
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-
-            Time.timeScale = 1f;
-        }
+        Time.timeScale = 0f;
     }
 }
