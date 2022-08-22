@@ -122,6 +122,8 @@ public sealed class Target : MonoBehaviour
             TargetSpawner.targetPool[controller.Name].Enqueue(controller);
             gameObject.SetActive(false);
 
+            GetHit(collision.transform.position);
+
             var con = collision.gameObject.GetComponent<Target>().Controller;
 
             TargetSpawner.targetPool[con.Name].Enqueue(con);
