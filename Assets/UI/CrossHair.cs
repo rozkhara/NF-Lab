@@ -6,20 +6,22 @@ using UnityEngine.UI;
 public class CrossHair : MonoBehaviour
 {
     [SerializeField] private Image crossHair;
-    [SerializeField] private Button[] buttons;
+    [SerializeField] private Button[] crossHairButtons;
+    [SerializeField] private Button[] colorButtons;
 
     private void Awake()
     {
-        for (int i = 0; i < buttons.Length; i++)
+        for (int i = 0; i < crossHairButtons.Length; i++)
         {
             int idx = i;
-            buttons[idx].onClick.AddListener(() => SetCrossHairType(idx));
+            crossHairButtons[idx].onClick.AddListener(() => SetCrossHairType(idx));
+            colorButtons[idx].onClick.AddListener(() => SetCrossHairColor(idx));
         }
     }
 
     private void SetCrossHairType(int idx)
     {
-        crossHair.sprite = buttons[idx].transform.GetChild(0).GetComponent<Image>().sprite;
+        crossHair.sprite = crossHairButtons[idx].transform.GetChild(0).GetComponent<Image>().sprite;
 
         switch(idx)
         {
@@ -41,5 +43,10 @@ public class CrossHair : MonoBehaviour
                 crossHair.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 13f);
                 break;
         }
+    }
+
+    private void SetCrossHairColor(int idx)
+    {
+        crossHair.color = colorButtons[idx].GetComponent<Image>().color;
     }
 }
