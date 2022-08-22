@@ -18,7 +18,7 @@ public class SideBarControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         rt = GetComponent<RectTransform>();
 
-        defaultPos = rt.position;
+        defaultPos = rt.localPosition;
 
         extendedPos = new Vector3(defaultPos.x - deltaX, defaultPos.y, defaultPos.z);
     }
@@ -36,14 +36,14 @@ public class SideBarControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     IEnumerator Slide(int mode, float time)
     {
         float elapsedTime = 0f;
-        Vector3 startPos = rt.position;
+        Vector3 startPos = rt.localPosition;
 
         if (mode == 0)
         {
             while (elapsedTime < time)
             {
                 elapsedTime += Time.deltaTime;
-                rt.position = Vector3.Lerp(startPos, extendedPos, elapsedTime / time);
+                rt.localPosition = Vector3.Lerp(startPos, extendedPos, elapsedTime / time);
                 yield return new WaitForEndOfFrame();
             }
         }
@@ -52,7 +52,7 @@ public class SideBarControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             while (elapsedTime < time)
             {
                 elapsedTime += Time.deltaTime;
-                rt.position = Vector3.Lerp(startPos, defaultPos, elapsedTime / time);
+                rt.localPosition = Vector3.Lerp(startPos, defaultPos, elapsedTime / time);
                 yield return new WaitForEndOfFrame();
             }
         }

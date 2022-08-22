@@ -35,6 +35,7 @@ namespace Controllers
             yield return AssetLoader.LoadPrefabAsync<GameObject>("Targets/TargetN", x =>
             {
                 resource = Object.Instantiate(x);
+                resource.GetComponent<MeshRenderer>().material = CreateMaterials.Instance.CreateMat(Mass);
             });
         }
     }
