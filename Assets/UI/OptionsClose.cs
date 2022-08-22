@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using Managers;
 
 public class OptionsClose : MonoBehaviour, IPointerClickHandler
 {

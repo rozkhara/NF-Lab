@@ -3,47 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spawners;
 
-public class ParticleManager : MonoBehaviour
+namespace Managers
 {
-    private static ParticleManager instance;
-
-    public static ParticleManager Instance
+    public class ParticleManager : MonoBehaviour
     {
-        get
+        private static ParticleManager instance;
+
+        public static ParticleManager Instance
         {
-            if (instance == null)
+            get
             {
-                instance = FindObjectOfType<ParticleManager>();
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<ParticleManager>();
+                }
+
+                return instance;
             }
-
-            return instance;
         }
-    }
 
-    public ParticleSystem[] particles; // 파티클들 지정하는 배열
+        public ParticleSystem[] particles; // 파티클들 지정하는 배열
 
-    private readonly Dictionary<string, ParticleSystem> particlesDic = new Dictionary<string, ParticleSystem>(); // 파티클들을 string으로 관리할 수 있게 만든 딕셔너리
+        private readonly Dictionary<string, ParticleSystem> particlesDic = new Dictionary<string, ParticleSystem>(); // 파티클들을 string으로 관리할 수 있게 만든 딕셔너리
 
-    private void Awake()
-    {
-        if (Instance != this) Destroy(this.gameObject); // 이미 ParticleManager가 있으면 이 ParticleManager 삭제
-
-        DontDestroyOnLoad(this.gameObject); // 여러 씬에서 사용
-
-        foreach (ParticleSystem particle in particles)
+        private void Awake()
         {
-            particlesDic.Add(particle.name, particle);
+            if (Instance != this) Destroy(this.gameObject); // 이미 ParticleManager가 있으면 이 ParticleManager 삭제
+
+            DontDestroyOnLoad(this.gameObject); // 여러 씬에서 사용
+
+            foreach (ParticleSystem particle in particles)
+            {
+                particlesDic.Add(particle.name, particle);
+            }
         }
-    }
 
-    public void PlayParticle(string name, Vector3 pos)
-    {
-        var particle = ParticleSpawner.particlePool[name].Dequeue();
+        public void PlayParticle(string name, Vector3 pos)
+        {
+            var particle = ParticleSpawner.particlePool[name].Dequeue();
 
-        particle.transform.position = pos;
+            particle.transform.position = pos;
 
-        particle.Play();
+            particle.Play();
 
-        ParticleSpawner.particlePool[name].Enqueue(particle);
+            ParticleSpawner.particlePool[name].Enqueue(particle);
+        }
     }
 }
