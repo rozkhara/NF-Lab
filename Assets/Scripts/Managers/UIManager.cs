@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace Managers
 {
@@ -14,19 +15,35 @@ namespace Managers
 
         public int Streak { get; private set; } = 0;
 
-        public static UIManager Instance { get; private set; }
+        public Sprite crossHairSprite;
+
+        public float CrossHairScale { get; set; } = 20f;
+
+        public int CrossHairIdx { get; set; }
+
+        private static UIManager instance;
+
+        public static UIManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<UIManager>();
+                }
+
+                return instance;
+            }
+        }
 
         private void Awake()
         {
-            Instance = this;
+            if (Instance != this) Destroy(this.gameObject); // 이미 UIManager가 있으면 이 UIManager 삭제
+
+            DontDestroyOnLoad(this.gameObject); // 여러 씬에서 사용
 
             scoreText.text = "Score: \n" + Score.ToString();
             streakText.text = "Streak: \n" + Streak.ToString() + "X";
-        }
-
-        private void OnDestroy()
-        {
-            Instance = null;
         }
 
         /// <summary>

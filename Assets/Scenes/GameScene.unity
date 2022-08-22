@@ -648,6 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1170823869}
   streakText: {fileID: 516006459}
+  crossHairSprite: {fileID: 21300042, guid: db63fa1c2adceb141974024b30ffa6db, type: 3}
 --- !u!4 &152295459
 Transform:
   m_ObjectHideFlags: 0
