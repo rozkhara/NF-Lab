@@ -20,8 +20,6 @@ namespace Managers
 
         public PlayerController Player { get; set; }
 
-        public CameraRotate CamRotate { get; set; }
-
         public bool IsGameOver { get; private set; }
 
         public bool IsGamePaused { get; private set; }

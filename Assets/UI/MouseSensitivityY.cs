@@ -17,13 +17,15 @@ public class MouseSensitivityY : MonoBehaviour
 
         valueText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        slider.value = GameManager.Instance.CamRotate.YSensitivity;
+        slider.value = UIManager.Instance.YSensitivity;
         valueText.text = slider.value.ToString("F1");
     }
 
     public void ChangeY()
     {
-        GameManager.Instance.CamRotate.YSensitivity = slider.value;
+        if (UIManager.Instance.CamRotate != null) UIManager.Instance.CamRotate.YSensitivity = slider.value;
+
+        UIManager.Instance.YSensitivity = slider.value;
 
         valueText.text = slider.value.ToString("F1");
     }

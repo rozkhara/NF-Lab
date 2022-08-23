@@ -16,11 +16,17 @@ namespace Managers
 
         public int Streak { get; private set; } = 0;
 
+        public float XSensitivity { get; set; } = 3f;
+
+        public float YSensitivity { get; set; } = 5f;
+
         public Sprite crossHairSprite;
 
         public float CrossHairScale { get; set; } = 20f;
 
         public int CrossHairIdx { get; set; }
+
+        public CameraRotate CamRotate { get; set; }
 
         private float multiplier = 1f;
 

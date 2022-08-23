@@ -25,10 +25,10 @@ public class CameraRotate : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.CamRotate = this;
+        UIManager.Instance.CamRotate = this;
 
-        XSensitivity = 3f;
-        YSensitivity = 5f;
+        XSensitivity = UIManager.Instance.XSensitivity;
+        YSensitivity = UIManager.Instance.YSensitivity;
     }
 
     public void UpdateRotate(float mouseX, float mouseY)
