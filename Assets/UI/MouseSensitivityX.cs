@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Managers;
-using UnityEngine.EventSystems;
 
-public class VolumeControlBGM : MonoBehaviour
+public class MouseSensitivityX : MonoBehaviour
 {
     private Slider slider;
 
@@ -18,14 +17,14 @@ public class VolumeControlBGM : MonoBehaviour
 
         valueText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
-        slider.value = SoundManager.Instance.GetBGMVolume() * 100;
-        valueText.text = ((int)slider.value).ToString();
+        slider.value = GameManager.Instance.CamRotate.XSensitivity;
+        valueText.text = slider.value.ToString("F1");
     }
 
-    public void ChangeBGM()
+    public void ChangeX()
     {
-        SoundManager.Instance.SetBGMVolume(slider.value / 100);
+        GameManager.Instance.CamRotate.XSensitivity = slider.value;
 
-        valueText.text = ((int)slider.value).ToString();
+        valueText.text = slider.value.ToString("F1");
     }
 }

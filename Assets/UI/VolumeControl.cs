@@ -17,6 +17,8 @@ public class VolumeControl : MonoBehaviour, IPointerUpHandler
         slider = GetComponent<Slider>();
 
         valueText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        slider.value = SoundManager.Instance.GetSFXVolume() * 100;
         valueText.text = ((int)slider.value).ToString();
     }
 

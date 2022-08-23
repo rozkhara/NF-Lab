@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Managers;
 
-public class MouseSensitivity : MonoBehaviour
+public class MouseSensitivityY : MonoBehaviour
 {
     private Slider slider;
 
@@ -16,12 +16,8 @@ public class MouseSensitivity : MonoBehaviour
         slider = GetComponent<Slider>();
 
         valueText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-    }
 
-    public void ChangeX()
-    {
-        GameManager.Instance.CamRotate.XSensitivity = slider.value;
-
+        slider.value = GameManager.Instance.CamRotate.YSensitivity;
         valueText.text = slider.value.ToString("F1");
     }
 
