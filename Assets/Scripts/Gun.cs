@@ -46,6 +46,9 @@ public sealed class Gun : MonoBehaviour
 
         controller.OnUpdate();
 
+        transform.GetChild(0).transform.localPosition = new(0.3f, 2.95f, -1.25f);
+        transform.GetChild(0).transform.localRotation = Quaternion.Euler(0, 90f, 0);
+
         GunFireRateCalc();
         TryFire();
     }
