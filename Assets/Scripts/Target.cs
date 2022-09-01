@@ -219,7 +219,8 @@ public sealed class Target : MonoBehaviour
 
         var value = Mathf.Log10(Time.time);
 
-        speed = Mathf.Clamp(value, 1.0f, value);
+        if (value > 2) speed = value + Time.deltaTime;
+        else speed = Mathf.Clamp(value, 1.0f, value);
     }
 
     private void GameOver()
