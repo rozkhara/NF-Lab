@@ -16,6 +16,8 @@ public class RestartGame : MonoBehaviour
 
         Time.timeScale = 1f;
 
+        UIManager.Instance.ResetScore();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -27,6 +29,8 @@ public class RestartGame : MonoBehaviour
         GameManager.Instance.GetComponent<TargetSpawner>().enabled = false;
 
         Time.timeScale = 1f;
+
+        UIManager.Instance.ResetScore();
 
         SceneManager.LoadScene("StartScene");
     }
