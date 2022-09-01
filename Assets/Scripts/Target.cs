@@ -215,11 +215,9 @@ public sealed class Target : MonoBehaviour
 
     private void SpeedUp()
     {
-        // GameManager.Instance.speed += Time.deltaTime / 100;
-
         var value = Mathf.Log10(Time.time);
 
-        if (value > 2) speed = value + Time.deltaTime;
+        if (value > 2) speed = value + Time.time - 100;
         else speed = Mathf.Clamp(value, 1.0f, value);
     }
 
