@@ -17,6 +17,7 @@ public class RestartGame : MonoBehaviour
         Time.timeScale = 1f;
 
         UIManager.Instance.ResetScore();
+        UIManager.Instance.ResetStreak();
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -31,6 +32,7 @@ public class RestartGame : MonoBehaviour
         Time.timeScale = 1f;
 
         UIManager.Instance.ResetScore();
+        UIManager.Instance.ResetStreak();
 
         SceneManager.LoadScene("StartScene");
     }
